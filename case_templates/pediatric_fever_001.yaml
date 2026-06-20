@@ -1,0 +1,67 @@
+case_id: pediatric_fever_001
+title: Pediatric fever with parental concern
+specialty: pediatrics
+difficulty: intermediate
+chief_complaint: Fever in a toddler
+demographics:
+  age: 3
+  gender: male
+  occupation: preschool child
+present_illness:
+  onset: gradual
+  duration: 2 days
+  location: generalized
+  character: fever with reduced appetite
+  severity: 6/10 parental concern
+  radiation: not applicable
+  associated_symptoms:
+    - runny nose
+    - cough
+    - decreased appetite
+  aggravating_factors:
+    - nighttime
+  relieving_factors:
+    - acetaminophen lowers fever
+past_medical_history:
+  - born full term
+  - no chronic illness
+medication_history:
+  - acetaminophen
+allergy_history:
+  - no known drug allergies
+family_history:
+  - sibling has a cold
+social_history:
+  smoking: no household smoking
+  alcohol: not applicable
+  drug_use: not applicable
+hidden_information:
+  - item: child has only had one wet diaper today
+    reveal_condition: only reveal if asked about hydration, urine output, or intake
+    clinical_relevance: suggests dehydration risk
+red_flags:
+  - sepsis
+  - meningitis
+  - dehydration
+expected_key_questions:
+  - maximum temperature
+  - duration of fever
+  - feeding and fluid intake
+  - urine output
+  - rash
+  - breathing difficulty
+  - lethargy
+  - seizures
+  - vaccination status
+  - sick contacts
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: high
+  cooperativeness: medium
+  health_literacy: low
+opening_statement: "I'm worried about my son. He has had a fever for two days and isn't eating much."

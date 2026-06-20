@@ -1,0 +1,35 @@
+transcript_id: abdominal_pain_borderline
+case_id: abdominal_pain_001
+student_level: borderline
+conversation:
+  - speaker: patient
+    text: "My stomach pain moved to the lower right side and it hurts to walk."
+  - speaker: clinician
+    text: "Can you tell me when the pain started, where it is now, and how severe it feels?"
+  - speaker: patient
+    text: "It started last night and now is right lower abdomen, seven out of ten."
+  - speaker: clinician
+    text: "Any fever, vomiting, bowel symptoms, or urinary symptoms?"
+  - speaker: patient
+    text: "I feel warm and nauseated, but no diarrhea or urinary burning."
+  - speaker: clinician
+    text: "Do you have allergies or take pain medication?"
+  - speaker: patient
+    text: "No allergies. I took ibuprofen."
+  - speaker: clinician
+    text: "This could be appendicitis. We should examine you and likely do blood tests and imaging."
+reference_scores:
+  history_taking: 24
+  communication: 14
+  clinical_reasoning: 12
+  empathy: 4
+  closure: 6
+  safety_red_flags: 4
+reference_total_score: 64
+expected_missed_items:
+  - menstrual history
+  - pregnancy possibility
+expected_strengths:
+  - asked about migration and gastrointestinal symptoms
+  - considered appendicitis
+expected_feedback_summary: Reasonable abdominal pain history but missed pregnancy-related safety questions.

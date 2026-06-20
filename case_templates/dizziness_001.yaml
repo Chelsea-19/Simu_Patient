@@ -1,0 +1,65 @@
+case_id: dizziness_001
+title: Episodic vertigo triggered by head movement
+specialty: neurology
+difficulty: intermediate
+chief_complaint: Dizziness when turning in bed
+demographics:
+  age: 67
+  gender: female
+  occupation: retired librarian
+present_illness:
+  onset: sudden
+  duration: 3 days
+  location: head
+  character: room-spinning episodes
+  severity: 7/10 during attacks
+  radiation: not applicable
+  associated_symptoms:
+    - nausea
+  aggravating_factors:
+    - rolling over in bed
+    - looking up
+  relieving_factors:
+    - keeping head still
+past_medical_history:
+  - hypertension
+medication_history:
+  - losartan
+allergy_history:
+  - no known drug allergies
+family_history:
+  - noncontributory
+social_history:
+  smoking: never smoker
+  alcohol: none
+  drug_use: denies
+hidden_information:
+  - item: had brief slurred speech yesterday
+    reveal_condition: only reveal if asked about neurologic symptoms or stroke symptoms
+    clinical_relevance: central vertigo or transient ischemic attack must be considered
+red_flags:
+  - posterior circulation stroke
+  - vestibular neuritis
+  - arrhythmia-related presyncope
+expected_key_questions:
+  - vertigo versus lightheadedness
+  - triggers
+  - episode duration
+  - hearing loss
+  - tinnitus
+  - headache
+  - neurologic symptoms
+  - falls
+  - medication review
+  - cardiovascular symptoms
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "The room spins whenever I roll over, and I'm scared I might fall."

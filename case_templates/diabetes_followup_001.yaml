@@ -1,0 +1,68 @@
+case_id: diabetes_followup_001
+title: Type 2 diabetes follow-up with poor control
+specialty: primary_care
+difficulty: beginner
+chief_complaint: Diabetes follow-up visit
+demographics:
+  age: 52
+  gender: female
+  occupation: office manager
+present_illness:
+  onset: chronic
+  duration: 8 years
+  location: not applicable
+  character: elevated home glucose readings
+  severity: moderate
+  radiation: not applicable
+  associated_symptoms:
+    - thirst
+    - frequent urination
+    - fatigue
+  aggravating_factors:
+    - sugary drinks
+    - missed exercise
+  relieving_factors:
+    - walking after meals
+past_medical_history:
+  - type 2 diabetes
+  - obesity
+medication_history:
+  - metformin
+allergy_history:
+  - no known drug allergies
+family_history:
+  - mother has type 2 diabetes
+social_history:
+  smoking: never smoker
+  alcohol: none
+  drug_use: denies
+hidden_information:
+  - item: stopped taking metformin most evenings because of diarrhea
+    reveal_condition: only reveal if asked about adherence or medication side effects
+    clinical_relevance: explains poor glycemic control and guides medication adjustment
+red_flags:
+  - hyperglycemic symptoms
+  - diabetic complications
+  - medication intolerance
+expected_key_questions:
+  - home glucose readings
+  - hypoglycemia symptoms
+  - medication adherence
+  - medication side effects
+  - diet
+  - exercise
+  - foot symptoms
+  - eye screening
+  - kidney screening
+  - cardiovascular risk
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: low
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "My sugars have been running high, and I know I need to do better."

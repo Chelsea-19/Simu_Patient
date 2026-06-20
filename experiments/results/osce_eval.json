@@ -1,0 +1,626 @@
+{
+  "metrics": {
+    "total_score_mae": 19.1,
+    "dimension_score_mae": {
+      "history_taking": 4.6,
+      "communication": 3.3,
+      "clinical_reasoning": 5.2,
+      "empathy": 1.7,
+      "closure": 2.8,
+      "safety_red_flags": 2.6
+    },
+    "score_correlation": 0.9698970720847702,
+    "pass_fail_agreement": 0.7,
+    "false_pass_count": 0,
+    "false_fail_count": 3,
+    "pass_fail_confusion_matrix": {
+      "true_pass": 2,
+      "true_fail": 5,
+      "false_pass": 0,
+      "false_fail": 3
+    },
+    "red_flag_detection_accuracy": 0.7,
+    "missed_item_detection_accuracy": 0.4322222222222222,
+    "total_transcripts": 10
+  },
+  "results": [
+    {
+      "transcript_id": "abdominal_pain_borderline",
+      "case_id": "abdominal_pain_001",
+      "student_level": "borderline",
+      "predicted_scores": {
+        "history_taking": 20,
+        "communication": 14,
+        "clinical_reasoning": 13,
+        "empathy": 0,
+        "closure": 0,
+        "safety_red_flags": 3
+      },
+      "reference_scores": {
+        "history_taking": 24,
+        "communication": 14,
+        "clinical_reasoning": 12,
+        "empathy": 4,
+        "closure": 6,
+        "safety_red_flags": 4
+      },
+      "score_errors": {
+        "history_taking": -4,
+        "communication": 0,
+        "clinical_reasoning": 1,
+        "empathy": -4,
+        "closure": -6,
+        "safety_red_flags": -1
+      },
+      "predicted_total_score": 45,
+      "reference_total_score": 64,
+      "total_score_error": -19,
+      "predicted_pass": false,
+      "reference_pass": false,
+      "detected_covered_items": [
+        "severity",
+        "fever",
+        "vomiting",
+        "bowel symptoms",
+        "urinary symptoms"
+      ],
+      "detected_missed_items": [
+        "onset and migration",
+        "location",
+        "menstrual history",
+        "pregnancy possibility",
+        "analgesic use"
+      ],
+      "detected_red_flags": [
+        "appendicitis"
+      ],
+      "expected_missed_items": [
+        "menstrual history",
+        "pregnancy possibility"
+      ],
+      "expected_strengths": [
+        "asked about migration and gastrointestinal symptoms",
+        "considered appendicitis"
+      ],
+      "feedback_summary": "Reasonable abdominal pain history but missed pregnancy-related safety questions. Rule-based scorer found covered 5 expected history items, recognized red flags: appendicitis. Missed items: onset and migration, location, menstrual history, pregnancy possibility, analgesic use."
+    },
+    {
+      "transcript_id": "asthma_good",
+      "case_id": "asthma_exacerbation_001",
+      "student_level": "good",
+      "predicted_scores": {
+        "history_taking": 36,
+        "communication": 12,
+        "clinical_reasoning": 5,
+        "empathy": 6,
+        "closure": 4,
+        "safety_red_flags": 3
+      },
+      "reference_scores": {
+        "history_taking": 35,
+        "communication": 17,
+        "clinical_reasoning": 16,
+        "empathy": 8,
+        "closure": 8,
+        "safety_red_flags": 8
+      },
+      "score_errors": {
+        "history_taking": 1,
+        "communication": -5,
+        "clinical_reasoning": -11,
+        "empathy": -2,
+        "closure": -4,
+        "safety_red_flags": -5
+      },
+      "predicted_total_score": 60,
+      "reference_total_score": 92,
+      "total_score_error": -32,
+      "predicted_pass": false,
+      "reference_pass": true,
+      "detected_covered_items": [
+        "shortness of breath severity",
+        "wheeze",
+        "cough and fever",
+        "rescue inhaler use",
+        "controller medication use",
+        "triggers",
+        "allergies",
+        "ability to speak",
+        "chest pain"
+      ],
+      "detected_missed_items": [
+        "prior hospitalizations"
+      ],
+      "detected_red_flags": [
+        "severe asthma attack"
+      ],
+      "expected_missed_items": [],
+      "expected_strengths": [
+        "assessed severity and rescue inhaler use",
+        "identified controller non-use",
+        "gave safety plan"
+      ],
+      "feedback_summary": "Strong asthma exacerbation history with appropriate medication and safety assessment. Rule-based scorer found covered 9 expected history items, recognized red flags: severe asthma attack. Missed items: prior hospitalizations."
+    },
+    {
+      "transcript_id": "chest_pain_good",
+      "case_id": "chest_pain_001",
+      "student_level": "good",
+      "predicted_scores": {
+        "history_taking": 40,
+        "communication": 10,
+        "clinical_reasoning": 20,
+        "empathy": 6,
+        "closure": 8,
+        "safety_red_flags": 10
+      },
+      "reference_scores": {
+        "history_taking": 38,
+        "communication": 18,
+        "clinical_reasoning": 18,
+        "empathy": 8,
+        "closure": 9,
+        "safety_red_flags": 9
+      },
+      "score_errors": {
+        "history_taking": 2,
+        "communication": -8,
+        "clinical_reasoning": 2,
+        "empathy": -2,
+        "closure": -1,
+        "safety_red_flags": 1
+      },
+      "predicted_total_score": 85,
+      "reference_total_score": 100,
+      "total_score_error": -15,
+      "predicted_pass": true,
+      "reference_pass": true,
+      "detected_covered_items": [
+        "onset",
+        "location",
+        "radiation",
+        "severity",
+        "associated symptoms",
+        "cardiovascular risk factors",
+        "medication history",
+        "allergy history",
+        "smoking history",
+        "recreational drug use"
+      ],
+      "detected_missed_items": [],
+      "detected_red_flags": [
+        "acute coronary syndrome",
+        "pulmonary embolism",
+        "aortic dissection"
+      ],
+      "expected_missed_items": [],
+      "expected_strengths": [
+        "explored chest pain character and risk factors",
+        "asked directly about recreational drug use",
+        "identified urgent red flags"
+      ],
+      "feedback_summary": "Strong chest pain assessment with appropriate urgency and safety framing. Rule-based scorer found covered 10 expected history items, recognized red flags: acute coronary syndrome, pulmonary embolism, aortic dissection. No expected history items were missed."
+    },
+    {
+      "transcript_id": "depression_poor",
+      "case_id": "depression_screening_001",
+      "student_level": "poor",
+      "predicted_scores": {
+        "history_taking": 4,
+        "communication": 8,
+        "clinical_reasoning": 2,
+        "empathy": 0,
+        "closure": 2,
+        "safety_red_flags": 0
+      },
+      "reference_scores": {
+        "history_taking": 10,
+        "communication": 6,
+        "clinical_reasoning": 4,
+        "empathy": 1,
+        "closure": 2,
+        "safety_red_flags": 0
+      },
+      "score_errors": {
+        "history_taking": -6,
+        "communication": 2,
+        "clinical_reasoning": -2,
+        "empathy": -1,
+        "closure": 0,
+        "safety_red_flags": 0
+      },
+      "predicted_total_score": 15,
+      "reference_total_score": 23,
+      "total_score_error": -8,
+      "predicted_pass": false,
+      "reference_pass": false,
+      "detected_covered_items": [
+        "sleep"
+      ],
+      "detected_missed_items": [
+        "mood duration",
+        "anhedonia",
+        "appetite",
+        "concentration",
+        "guilt or hopelessness",
+        "suicidal ideation",
+        "manic symptoms",
+        "substance use",
+        "support system"
+      ],
+      "detected_red_flags": [],
+      "expected_missed_items": [
+        "anhedonia",
+        "suicidal ideation",
+        "manic symptoms",
+        "substance use",
+        "support system"
+      ],
+      "expected_strengths": [
+        "asked about duration"
+      ],
+      "feedback_summary": "Incomplete depression screen with no safety assessment. Rule-based scorer found covered 1 expected history items. Missed items: mood duration, anhedonia, appetite, concentration, guilt or hopelessness, suicidal ideation, manic symptoms, substance use, support system."
+    },
+    {
+      "transcript_id": "diabetes_borderline",
+      "case_id": "diabetes_followup_001",
+      "student_level": "borderline",
+      "predicted_scores": {
+        "history_taking": 20,
+        "communication": 14,
+        "clinical_reasoning": 2,
+        "empathy": 0,
+        "closure": 4,
+        "safety_red_flags": 0
+      },
+      "reference_scores": {
+        "history_taking": 25,
+        "communication": 13,
+        "clinical_reasoning": 12,
+        "empathy": 2,
+        "closure": 6,
+        "safety_red_flags": 4
+      },
+      "score_errors": {
+        "history_taking": -5,
+        "communication": 1,
+        "clinical_reasoning": -10,
+        "empathy": -2,
+        "closure": -2,
+        "safety_red_flags": -4
+      },
+      "predicted_total_score": 36,
+      "reference_total_score": 62,
+      "total_score_error": -26,
+      "predicted_pass": false,
+      "reference_pass": false,
+      "detected_covered_items": [
+        "home glucose readings",
+        "medication adherence",
+        "medication side effects",
+        "diet",
+        "exercise"
+      ],
+      "detected_missed_items": [
+        "hypoglycemia symptoms",
+        "foot symptoms",
+        "eye screening",
+        "kidney screening",
+        "cardiovascular risk"
+      ],
+      "detected_red_flags": [],
+      "expected_missed_items": [
+        "foot symptoms",
+        "eye screening",
+        "kidney screening",
+        "cardiovascular risk"
+      ],
+      "expected_strengths": [
+        "identified metformin intolerance and adherence issue",
+        "discussed diet and exercise"
+      ],
+      "feedback_summary": "Useful adherence history but incomplete chronic complication screening. Rule-based scorer found covered 5 expected history items. Missed items: hypoglycemia symptoms, foot symptoms, eye screening, kidney screening, cardiovascular risk."
+    },
+    {
+      "transcript_id": "headache_poor",
+      "case_id": "headache_001",
+      "student_level": "poor",
+      "predicted_scores": {
+        "history_taking": 0,
+        "communication": 6,
+        "clinical_reasoning": 5,
+        "empathy": 0,
+        "closure": 0,
+        "safety_red_flags": 3
+      },
+      "reference_scores": {
+        "history_taking": 8,
+        "communication": 5,
+        "clinical_reasoning": 2,
+        "empathy": 0,
+        "closure": 1,
+        "safety_red_flags": 0
+      },
+      "score_errors": {
+        "history_taking": -8,
+        "communication": 1,
+        "clinical_reasoning": 3,
+        "empathy": 0,
+        "closure": -1,
+        "safety_red_flags": 3
+      },
+      "predicted_total_score": 13,
+      "reference_total_score": 16,
+      "total_score_error": -3,
+      "predicted_pass": false,
+      "reference_pass": false,
+      "detected_covered_items": [],
+      "detected_missed_items": [
+        "onset speed",
+        "worst headache of life",
+        "neurologic symptoms",
+        "fever",
+        "neck stiffness",
+        "vision changes",
+        "trauma",
+        "anticoagulant use",
+        "pregnancy status",
+        "previous headache pattern"
+      ],
+      "detected_red_flags": [
+        "thunderclap headache"
+      ],
+      "expected_missed_items": [
+        "onset speed",
+        "worst headache of life",
+        "neurologic symptoms",
+        "fever",
+        "neck stiffness",
+        "vision changes",
+        "trauma",
+        "anticoagulant use",
+        "pregnancy status"
+      ],
+      "expected_strengths": [
+        "asked about location and severity"
+      ],
+      "feedback_summary": "Unsafe headache assessment with no red flag screening. Rule-based scorer found recognized red flags: thunderclap headache. Missed items: onset speed, worst headache of life, neurologic symptoms, fever, neck stiffness, vision changes, trauma, anticoagulant use, pregnancy status, previous headache pattern."
+    },
+    {
+      "transcript_id": "medication_nonadherence_borderline",
+      "case_id": "medication_nonadherence_001",
+      "student_level": "borderline",
+      "predicted_scores": {
+        "history_taking": 32,
+        "communication": 14,
+        "clinical_reasoning": 5,
+        "empathy": 6,
+        "closure": 2,
+        "safety_red_flags": 3
+      },
+      "reference_scores": {
+        "history_taking": 29,
+        "communication": 15,
+        "clinical_reasoning": 14,
+        "empathy": 3,
+        "closure": 7,
+        "safety_red_flags": 6
+      },
+      "score_errors": {
+        "history_taking": 3,
+        "communication": -1,
+        "clinical_reasoning": -9,
+        "empathy": 3,
+        "closure": -5,
+        "safety_red_flags": -3
+      },
+      "predicted_total_score": 56,
+      "reference_total_score": 74,
+      "total_score_error": -18,
+      "predicted_pass": false,
+      "reference_pass": true,
+      "detected_covered_items": [
+        "which medications are missed",
+        "frequency of missed doses",
+        "side effects",
+        "cost barriers",
+        "beliefs about medications",
+        "daily routine",
+        "pharmacy access",
+        "support system"
+      ],
+      "detected_missed_items": [
+        "health literacy",
+        "shared plan preferences"
+      ],
+      "detected_red_flags": [
+        "medication side effects"
+      ],
+      "expected_missed_items": [
+        "health literacy",
+        "pharmacy access"
+      ],
+      "expected_strengths": [
+        "identified cost as central barrier",
+        "explored missed medications and routine"
+      ],
+      "feedback_summary": "Good adherence-barrier assessment with room for more empathy and health literacy exploration. Rule-based scorer found covered 8 expected history items, recognized red flags: medication side effects. Missed items: health literacy, shared plan preferences."
+    },
+    {
+      "transcript_id": "pregnancy_abdominal_pain_good",
+      "case_id": "pregnancy_abdominal_pain_001",
+      "student_level": "good",
+      "predicted_scores": {
+        "history_taking": 32,
+        "communication": 10,
+        "clinical_reasoning": 17,
+        "empathy": 9,
+        "closure": 8,
+        "safety_red_flags": 7
+      },
+      "reference_scores": {
+        "history_taking": 37,
+        "communication": 18,
+        "clinical_reasoning": 19,
+        "empathy": 9,
+        "closure": 9,
+        "safety_red_flags": 10
+      },
+      "score_errors": {
+        "history_taking": -5,
+        "communication": -8,
+        "clinical_reasoning": -2,
+        "empathy": 0,
+        "closure": -1,
+        "safety_red_flags": -3
+      },
+      "predicted_total_score": 75,
+      "reference_total_score": 100,
+      "total_score_error": -25,
+      "predicted_pass": true,
+      "reference_pass": true,
+      "detected_covered_items": [
+        "vaginal bleeding",
+        "dizziness or syncope",
+        "shoulder tip pain",
+        "prior pregnancies",
+        "prior ectopic pregnancy",
+        "contraception or fertility treatment",
+        "urinary symptoms",
+        "blood type history"
+      ],
+      "detected_missed_items": [
+        "gestational age",
+        "pain location"
+      ],
+      "detected_red_flags": [
+        "ectopic pregnancy",
+        "hemodynamic instability"
+      ],
+      "expected_missed_items": [],
+      "expected_strengths": [
+        "elicited ectopic risk factors",
+        "recognized urgent ectopic pregnancy red flags",
+        "communicated empathically"
+      ],
+      "feedback_summary": "Excellent early pregnancy pain assessment with urgent safety framing. Rule-based scorer found covered 8 expected history items, recognized red flags: ectopic pregnancy, hemodynamic instability. Missed items: gestational age, pain location."
+    },
+    {
+      "transcript_id": "smoking_good",
+      "case_id": "smoking_cessation_001",
+      "student_level": "good",
+      "predicted_scores": {
+        "history_taking": 28,
+        "communication": 12,
+        "clinical_reasoning": 9,
+        "empathy": 9,
+        "closure": 4,
+        "safety_red_flags": 7
+      },
+      "reference_scores": {
+        "history_taking": 34,
+        "communication": 19,
+        "clinical_reasoning": 15,
+        "empathy": 8,
+        "closure": 8,
+        "safety_red_flags": 7
+      },
+      "score_errors": {
+        "history_taking": -6,
+        "communication": -7,
+        "clinical_reasoning": -6,
+        "empathy": 1,
+        "closure": -4,
+        "safety_red_flags": 0
+      },
+      "predicted_total_score": 63,
+      "reference_total_score": 91,
+      "total_score_error": -28,
+      "predicted_pass": false,
+      "reference_pass": true,
+      "detected_covered_items": [
+        "cigarettes per day",
+        "pack-years",
+        "prior quit attempts",
+        "triggers",
+        "barriers",
+        "support system",
+        "cancer or COPD symptoms"
+      ],
+      "detected_missed_items": [
+        "readiness to quit",
+        "withdrawal symptoms",
+        "pharmacotherapy interest"
+      ],
+      "detected_red_flags": [
+        "lung cancer symptoms",
+        "chronic obstructive pulmonary disease"
+      ],
+      "expected_missed_items": [],
+      "expected_strengths": [
+        "explored readiness and barriers",
+        "offered pharmacotherapy and follow-up",
+        "screened for COPD and cancer symptoms"
+      ],
+      "feedback_summary": "Strong smoking cessation counseling using patient-centered barrier assessment. Rule-based scorer found covered 7 expected history items, recognized red flags: lung cancer symptoms, chronic obstructive pulmonary disease. Missed items: readiness to quit, withdrawal symptoms, pharmacotherapy interest."
+    },
+    {
+      "transcript_id": "uti_borderline",
+      "case_id": "urinary_tract_infection_001",
+      "student_level": "borderline",
+      "predicted_scores": {
+        "history_taking": 32,
+        "communication": 12,
+        "clinical_reasoning": 6,
+        "empathy": 0,
+        "closure": 2,
+        "safety_red_flags": 0
+      },
+      "reference_scores": {
+        "history_taking": 26,
+        "communication": 12,
+        "clinical_reasoning": 12,
+        "empathy": 2,
+        "closure": 6,
+        "safety_red_flags": 6
+      },
+      "score_errors": {
+        "history_taking": 6,
+        "communication": 0,
+        "clinical_reasoning": -6,
+        "empathy": -2,
+        "closure": -4,
+        "safety_red_flags": -6
+      },
+      "predicted_total_score": 47,
+      "reference_total_score": 64,
+      "total_score_error": -17,
+      "predicted_pass": false,
+      "reference_pass": false,
+      "detected_covered_items": [
+        "dysuria",
+        "frequency",
+        "urgency",
+        "fever",
+        "flank pain",
+        "pregnancy possibility",
+        "allergies",
+        "prior infections"
+      ],
+      "detected_missed_items": [
+        "hematuria",
+        "sexual history"
+      ],
+      "detected_red_flags": [],
+      "expected_missed_items": [
+        "sexual history",
+        "prior infections"
+      ],
+      "expected_strengths": [
+        "assessed pyelonephritis symptoms",
+        "checked pregnancy and allergy history"
+      ],
+      "feedback_summary": "Basic UTI assessment but missed STI risk and prior infection context. Rule-based scorer found covered 8 expected history items. Missed items: hematuria, sexual history."
+    }
+  ]
+}

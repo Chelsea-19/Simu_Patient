@@ -1,0 +1,38 @@
+transcript_id: smoking_good
+case_id: smoking_cessation_001
+student_level: good
+conversation:
+  - speaker: patient
+    text: "I know I should quit smoking, but every time I try I go back to it."
+  - speaker: clinician
+    text: "I understand quitting is difficult. How many cigarettes per day and how many pack-years have you smoked?"
+  - speaker: patient
+    text: "One pack per day for about thirty years."
+  - speaker: clinician
+    text: "What concerns or barriers have made quitting difficult, and what happened in prior quit attempts?"
+  - speaker: patient
+    text: "I worry about weight gain and stress at work."
+  - speaker: clinician
+    text: "How ready do you feel to quit, what triggers you, and what support system do you have?"
+  - speaker: patient
+    text: "Maybe ready, but coworkers smoke."
+  - speaker: clinician
+    text: "Any cough, breathlessness, chest pain, or concerns about lung cancer or chronic obstructive pulmonary disease?"
+  - speaker: patient
+    text: "Morning cough."
+  - speaker: clinician
+    text: "The plan is to choose a quit date, consider nicotine replacement or medication, and arrange follow up support."
+reference_scores:
+  history_taking: 34
+  communication: 19
+  clinical_reasoning: 15
+  empathy: 8
+  closure: 8
+  safety_red_flags: 7
+reference_total_score: 91
+expected_missed_items: []
+expected_strengths:
+  - explored readiness and barriers
+  - offered pharmacotherapy and follow-up
+  - screened for COPD and cancer symptoms
+expected_feedback_summary: Strong smoking cessation counseling using patient-centered barrier assessment.

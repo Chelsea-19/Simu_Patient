@@ -1,0 +1,68 @@
+case_id: chest_pain_001
+title: Acute chest pain with cardiac risk factors
+specialty: emergency_medicine
+difficulty: intermediate
+chief_complaint: Chest pain for 2 hours
+demographics:
+  age: 58
+  gender: male
+  occupation: taxi driver
+present_illness:
+  onset: sudden
+  duration: 2 hours
+  location: central chest
+  character: pressure-like
+  severity: 8/10
+  radiation: left arm
+  associated_symptoms:
+    - sweating
+    - nausea
+    - shortness of breath
+  aggravating_factors:
+    - exertion
+  relieving_factors:
+    - rest partially helps
+past_medical_history:
+  - hypertension
+  - hyperlipidemia
+medication_history:
+  - amlodipine
+  - atorvastatin
+allergy_history:
+  - no known drug allergies
+family_history:
+  - father died of myocardial infarction at 62
+social_history:
+  smoking: current smoker, 20 pack-years
+  alcohol: occasional
+  drug_use: denies unless asked directly
+hidden_information:
+  - item: recent cocaine use
+    reveal_condition: only reveal if asked directly about recreational drug or stimulant use
+    clinical_relevance: increases concern for cocaine-associated coronary vasospasm
+red_flags:
+  - acute coronary syndrome
+  - pulmonary embolism
+  - aortic dissection
+expected_key_questions:
+  - onset
+  - location
+  - radiation
+  - severity
+  - associated symptoms
+  - cardiovascular risk factors
+  - medication history
+  - allergy history
+  - smoking history
+  - recreational drug use
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: high
+  cooperativeness: medium
+  health_literacy: low
+opening_statement: "Doctor, I have this heavy pressure in my chest and I'm really worried."

@@ -1,0 +1,65 @@
+case_id: back_pain_001
+title: Acute low back pain with occupational strain
+specialty: primary_care
+difficulty: beginner
+chief_complaint: Low back pain after lifting
+demographics:
+  age: 45
+  gender: male
+  occupation: delivery driver
+present_illness:
+  onset: sudden
+  duration: 2 days
+  location: lower back
+  character: aching spasm
+  severity: 6/10
+  radiation: right buttock
+  associated_symptoms:
+    - stiffness
+  aggravating_factors:
+    - bending
+    - lifting
+  relieving_factors:
+    - lying flat
+past_medical_history:
+  - intermittent back pain
+medication_history:
+  - ibuprofen
+allergy_history:
+  - no known drug allergies
+family_history:
+  - noncontributory
+social_history:
+  smoking: current smoker, 10 pack-years
+  alcohol: occasional
+  drug_use: denies
+hidden_information:
+  - item: unintentional weight loss over 3 months
+    reveal_condition: only reveal if asked about constitutional symptoms or cancer red flags
+    clinical_relevance: raises concern for malignancy or systemic disease
+red_flags:
+  - cauda equina syndrome
+  - malignancy
+  - spinal infection
+expected_key_questions:
+  - mechanism of injury
+  - pain radiation
+  - weakness
+  - numbness
+  - bowel or bladder symptoms
+  - fever
+  - weight loss
+  - cancer history
+  - steroid use
+  - intravenous drug use
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: medium
+  health_literacy: low
+opening_statement: "I hurt my back lifting boxes, and now I can barely bend."

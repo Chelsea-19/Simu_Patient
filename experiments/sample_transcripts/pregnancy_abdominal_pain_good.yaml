@@ -1,0 +1,34 @@
+transcript_id: pregnancy_abdominal_pain_good
+case_id: pregnancy_abdominal_pain_001
+student_level: good
+conversation:
+  - speaker: patient
+    text: "I'm about six weeks pregnant and I'm having cramps with a little bleeding."
+  - speaker: clinician
+    text: "I am sorry, that must be worrying. How many weeks pregnant are you and where exactly is the pain?"
+  - speaker: patient
+    text: "Six weeks, left lower abdomen."
+  - speaker: clinician
+    text: "Any vaginal bleeding amount, dizziness, syncope, shoulder tip pain, urinary symptoms, or fever?"
+  - speaker: patient
+    text: "Light bleeding, dizziness, and some shoulder pain."
+  - speaker: clinician
+    text: "Tell me about prior pregnancies, any prior ectopic pregnancy, fertility treatment, contraception, and your blood type if you know it."
+  - speaker: patient
+    text: "I had an ectopic pregnancy before."
+  - speaker: clinician
+    text: "I am concerned about ectopic pregnancy and possible instability. The urgent next step is immediate assessment, pregnancy testing, ultrasound, blood work, and safety monitoring."
+reference_scores:
+  history_taking: 37
+  communication: 18
+  clinical_reasoning: 19
+  empathy: 9
+  closure: 9
+  safety_red_flags: 10
+reference_total_score: 100
+expected_missed_items: []
+expected_strengths:
+  - elicited ectopic risk factors
+  - recognized urgent ectopic pregnancy red flags
+  - communicated empathically
+expected_feedback_summary: Excellent early pregnancy pain assessment with urgent safety framing.

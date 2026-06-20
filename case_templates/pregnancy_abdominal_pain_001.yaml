@@ -1,0 +1,65 @@
+case_id: pregnancy_abdominal_pain_001
+title: Early pregnancy abdominal pain and bleeding
+specialty: obstetrics_gynecology
+difficulty: advanced
+chief_complaint: Lower abdominal pain in early pregnancy
+demographics:
+  age: 30
+  gender: female
+  occupation: nurse
+present_illness:
+  onset: gradual
+  duration: 1 day
+  location: left lower abdomen
+  character: cramping pain
+  severity: 6/10
+  radiation: left shoulder tip
+  associated_symptoms:
+    - light vaginal bleeding
+    - dizziness
+  aggravating_factors:
+    - standing
+  relieving_factors:
+    - lying down
+past_medical_history:
+  - no chronic illness
+medication_history:
+  - prenatal vitamin
+allergy_history:
+  - no known drug allergies
+family_history:
+  - noncontributory
+social_history:
+  smoking: never smoker
+  alcohol: stopped after positive pregnancy test
+  drug_use: denies
+hidden_information:
+  - item: prior ectopic pregnancy treated medically
+    reveal_condition: only reveal if asked about prior pregnancies or gynecologic history
+    clinical_relevance: major risk factor for recurrent ectopic pregnancy
+red_flags:
+  - ectopic pregnancy
+  - miscarriage
+  - hemodynamic instability
+expected_key_questions:
+  - gestational age
+  - pain location
+  - vaginal bleeding
+  - dizziness or syncope
+  - shoulder tip pain
+  - prior pregnancies
+  - prior ectopic pregnancy
+  - contraception or fertility treatment
+  - urinary symptoms
+  - blood type history
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: high
+  cooperativeness: high
+  health_literacy: high
+opening_statement: "I'm about six weeks pregnant and I'm having cramps with a little bleeding."

@@ -1,0 +1,67 @@
+case_id: abdominal_pain_001
+title: Right lower quadrant abdominal pain
+specialty: emergency_medicine
+difficulty: intermediate
+chief_complaint: Abdominal pain since last night
+demographics:
+  age: 24
+  gender: female
+  occupation: graduate student
+present_illness:
+  onset: gradual
+  duration: 14 hours
+  location: started near umbilicus, now right lower quadrant
+  character: sharp and constant
+  severity: 7/10
+  radiation: none
+  associated_symptoms:
+    - nausea
+    - poor appetite
+    - low-grade fever
+  aggravating_factors:
+    - walking
+    - coughing
+  relieving_factors:
+    - lying still
+past_medical_history:
+  - no chronic illness
+medication_history:
+  - occasional ibuprofen
+allergy_history:
+  - no known drug allergies
+family_history:
+  - noncontributory
+social_history:
+  smoking: never smoker
+  alcohol: rare
+  drug_use: denies
+hidden_information:
+  - item: last menstrual period was 7 weeks ago
+    reveal_condition: only reveal if asked about menstrual history or pregnancy possibility
+    clinical_relevance: ectopic pregnancy must be considered in reproductive-age abdominal pain
+red_flags:
+  - appendicitis
+  - ectopic pregnancy
+  - ovarian torsion
+expected_key_questions:
+  - onset and migration
+  - location
+  - severity
+  - fever
+  - vomiting
+  - bowel symptoms
+  - urinary symptoms
+  - menstrual history
+  - pregnancy possibility
+  - analgesic use
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "My stomach pain moved to the lower right side and it hurts to walk."

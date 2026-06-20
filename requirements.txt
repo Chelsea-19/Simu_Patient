@@ -1,0 +1,14 @@
+# Core data/config
+sqlmodel>=0.0.22
+pydantic-settings>=2.5.0
+python-dotenv>=1.0.0
+PyYAML>=6.0
+
+# Generative AI
+google-generativeai>=0.8.0
+
+# Frontend
+streamlit>=1.30.0
+
+# Tests
+pytest>=8.0.0

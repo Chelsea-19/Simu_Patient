@@ -1,0 +1,66 @@
+case_id: smoking_cessation_001
+title: Smoking cessation counseling readiness
+specialty: preventive_medicine
+difficulty: beginner
+chief_complaint: Wants to discuss quitting smoking
+demographics:
+  age: 48
+  gender: male
+  occupation: construction foreman
+present_illness:
+  onset: chronic
+  duration: 30 years smoking
+  location: not applicable
+  character: nicotine dependence
+  severity: one pack per day
+  radiation: not applicable
+  associated_symptoms:
+    - morning cough
+    - reduced exercise tolerance
+  aggravating_factors:
+    - stress
+    - coworkers smoking
+  relieving_factors:
+    - nicotine gum helped in the past
+past_medical_history:
+  - chronic bronchitis symptoms
+medication_history:
+  - none
+allergy_history:
+  - no known drug allergies
+family_history:
+  - father died of lung cancer
+social_history:
+  smoking: current smoker, 30 pack-years
+  alcohol: 3 beers on weekends
+  drug_use: denies
+hidden_information:
+  - item: worried about weight gain after quitting
+    reveal_condition: only reveal if asked about barriers, concerns, or prior quit attempts
+    clinical_relevance: barrier to cessation planning and relapse prevention
+red_flags:
+  - lung cancer symptoms
+  - chronic obstructive pulmonary disease
+  - cardiovascular risk
+expected_key_questions:
+  - cigarettes per day
+  - pack-years
+  - readiness to quit
+  - prior quit attempts
+  - withdrawal symptoms
+  - triggers
+  - barriers
+  - support system
+  - pharmacotherapy interest
+  - cancer or COPD symptoms
+scoring_rubric:
+  history_taking: 30
+  communication: 30
+  clinical_reasoning: 15
+  empathy: 15
+  closure: 10
+patient_personality:
+  anxiety: low
+  cooperativeness: medium
+  health_literacy: low
+opening_statement: "I know I should quit smoking, but every time I try I go back to it."

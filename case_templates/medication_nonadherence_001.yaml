@@ -1,0 +1,69 @@
+case_id: medication_nonadherence_001
+title: Medication non-adherence due to cost and beliefs
+specialty: primary_care
+difficulty: intermediate
+chief_complaint: Follow-up after missed medications
+demographics:
+  age: 55
+  gender: female
+  occupation: home health aide
+present_illness:
+  onset: chronic
+  duration: 6 months
+  location: not applicable
+  character: inconsistent medication use
+  severity: moderate
+  radiation: not applicable
+  associated_symptoms:
+    - fatigue
+    - occasional headache
+  aggravating_factors:
+    - medication cost
+    - complex schedule
+  relieving_factors:
+    - pill organizer helps
+past_medical_history:
+  - hypertension
+  - type 2 diabetes
+medication_history:
+  - metformin
+  - lisinopril
+  - hydrochlorothiazide
+allergy_history:
+  - no known drug allergies
+family_history:
+  - mother had kidney failure from diabetes
+social_history:
+  smoking: never smoker
+  alcohol: none
+  drug_use: denies
+hidden_information:
+  - item: skips medications near the end of the month because copays are too expensive
+    reveal_condition: only reveal if asked nonjudgmentally about barriers, cost, or access
+    clinical_relevance: cost barrier is central to adherence plan and shared decision-making
+red_flags:
+  - uncontrolled chronic disease
+  - medication side effects
+  - financial toxicity
+expected_key_questions:
+  - which medications are missed
+  - frequency of missed doses
+  - side effects
+  - cost barriers
+  - beliefs about medications
+  - daily routine
+  - health literacy
+  - pharmacy access
+  - support system
+  - shared plan preferences
+scoring_rubric:
+  history_taking: 35
+  communication: 25
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: low
+  health_literacy: low
+opening_statement: "I know my numbers are not great, but taking all these pills has been hard."

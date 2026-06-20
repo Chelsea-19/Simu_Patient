@@ -1,0 +1,66 @@
+case_id: medication_allergy_001
+title: Suspected medication allergy after antibiotic
+specialty: allergy_immunology
+difficulty: intermediate
+chief_complaint: Rash after starting antibiotics
+demographics:
+  age: 36
+  gender: male
+  occupation: chef
+present_illness:
+  onset: acute
+  duration: 12 hours
+  location: arms and trunk
+  character: itchy red rash
+  severity: 6/10
+  radiation: spreading to neck
+  associated_symptoms:
+    - itching
+    - mild lip tingling
+  aggravating_factors:
+    - warm shower
+  relieving_factors:
+    - antihistamine partially helps
+past_medical_history:
+  - sinus infection treated this week
+medication_history:
+  - amoxicillin-clavulanate
+  - cetirizine
+allergy_history:
+  - no previously documented drug allergies
+family_history:
+  - sister has penicillin allergy label
+social_history:
+  smoking: former smoker
+  alcohol: occasional
+  drug_use: denies
+hidden_information:
+  - item: felt throat tightness for a few minutes after the last dose
+    reveal_condition: only reveal if asked about breathing, throat, swelling, or anaphylaxis symptoms
+    clinical_relevance: suggests possible systemic allergic reaction
+red_flags:
+  - anaphylaxis
+  - Stevens-Johnson syndrome
+  - drug reaction with eosinophilia and systemic symptoms
+expected_key_questions:
+  - medication name
+  - timing after dose
+  - rash description
+  - itching
+  - facial or lip swelling
+  - throat tightness
+  - breathing difficulty
+  - mucosal lesions
+  - fever
+  - prior reactions
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: high
+  cooperativeness: medium
+  health_literacy: medium
+opening_statement: "I started an antibiotic and now I have this itchy rash all over."

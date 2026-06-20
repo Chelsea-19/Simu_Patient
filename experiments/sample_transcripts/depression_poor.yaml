@@ -1,0 +1,33 @@
+transcript_id: depression_poor
+case_id: depression_screening_001
+student_level: poor
+conversation:
+  - speaker: patient
+    text: "I have not felt like myself lately, and I am exhausted all the time."
+  - speaker: clinician
+    text: "How long has this been happening?"
+  - speaker: patient
+    text: "About two months."
+  - speaker: clinician
+    text: "Are you eating okay and sleeping okay?"
+  - speaker: patient
+    text: "Not really."
+  - speaker: clinician
+    text: "You should try to exercise and come back later if it continues."
+reference_scores:
+  history_taking: 10
+  communication: 6
+  clinical_reasoning: 4
+  empathy: 1
+  closure: 2
+  safety_red_flags: 0
+reference_total_score: 23
+expected_missed_items:
+  - anhedonia
+  - suicidal ideation
+  - manic symptoms
+  - substance use
+  - support system
+expected_strengths:
+  - asked about duration
+expected_feedback_summary: Incomplete depression screen with no safety assessment.

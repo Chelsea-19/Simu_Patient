@@ -1,0 +1,31 @@
+transcript_id: uti_borderline
+case_id: urinary_tract_infection_001
+student_level: borderline
+conversation:
+  - speaker: patient
+    text: "It burns when I pee and I keep needing to go."
+  - speaker: clinician
+    text: "Can you tell me about the dysuria, frequency, urgency, fever, flank pain, or blood in the urine?"
+  - speaker: patient
+    text: "Burning and frequency, no fever or flank pain."
+  - speaker: clinician
+    text: "Are you pregnant, and do you have any allergies?"
+  - speaker: patient
+    text: "I do not think I am pregnant. I had a rash with sulfa."
+  - speaker: clinician
+    text: "This sounds like a urinary infection. We can test your urine and plan antibiotics."
+reference_scores:
+  history_taking: 26
+  communication: 12
+  clinical_reasoning: 12
+  empathy: 2
+  closure: 6
+  safety_red_flags: 6
+reference_total_score: 64
+expected_missed_items:
+  - sexual history
+  - prior infections
+expected_strengths:
+  - assessed pyelonephritis symptoms
+  - checked pregnancy and allergy history
+expected_feedback_summary: Basic UTI assessment but missed STI risk and prior infection context.

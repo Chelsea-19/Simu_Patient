@@ -1,0 +1,66 @@
+case_id: depression_screening_001
+title: Depression screening in primary care
+specialty: psychiatry
+difficulty: intermediate
+chief_complaint: Low mood and poor sleep
+demographics:
+  age: 29
+  gender: female
+  occupation: teacher
+present_illness:
+  onset: gradual
+  duration: 2 months
+  location: mood and energy
+  character: persistent sadness and loss of interest
+  severity: 7/10
+  radiation: not applicable
+  associated_symptoms:
+    - poor sleep
+    - low appetite
+    - difficulty concentrating
+  aggravating_factors:
+    - work stress
+  relieving_factors:
+    - talking with sister briefly helps
+past_medical_history:
+  - no chronic medical illness
+medication_history:
+  - none
+allergy_history:
+  - no known drug allergies
+family_history:
+  - mother had depression
+social_history:
+  smoking: never smoker
+  alcohol: increased to 2 glasses of wine nightly
+  drug_use: denies
+hidden_information:
+  - item: passive thoughts that life is not worth living
+    reveal_condition: only reveal if asked directly about self-harm, suicide, or safety
+    clinical_relevance: safety assessment is essential in depression screening
+red_flags:
+  - suicidal ideation
+  - bipolar disorder
+  - substance misuse
+expected_key_questions:
+  - mood duration
+  - anhedonia
+  - sleep
+  - appetite
+  - concentration
+  - guilt or hopelessness
+  - suicidal ideation
+  - manic symptoms
+  - substance use
+  - support system
+scoring_rubric:
+  history_taking: 35
+  communication: 25
+  clinical_reasoning: 15
+  empathy: 15
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: low
+  health_literacy: medium
+opening_statement: "I have not felt like myself lately, and I am exhausted all the time."

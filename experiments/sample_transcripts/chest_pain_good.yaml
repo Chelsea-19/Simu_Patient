@@ -1,0 +1,38 @@
+transcript_id: chest_pain_good
+case_id: chest_pain_001
+student_level: good
+conversation:
+  - speaker: patient
+    text: "Doctor, I have this heavy pressure in my chest and I'm really worried."
+  - speaker: clinician
+    text: "I am sorry this is happening. When did the pain start, where is it located, and how severe is it?"
+  - speaker: patient
+    text: "It started two hours ago in the center of my chest, about eight out of ten."
+  - speaker: clinician
+    text: "Does it radiate to your arm, jaw, or back, and do you have sweating, nausea, or shortness of breath?"
+  - speaker: patient
+    text: "It goes to my left arm, and I feel sweaty and nauseated."
+  - speaker: clinician
+    text: "Do you have hypertension, diabetes, cholesterol problems, smoking, or family heart disease?"
+  - speaker: patient
+    text: "I smoke, and my father died of a heart attack."
+  - speaker: clinician
+    text: "What medications do you take, do you have allergies, and have you used any recreational drugs or stimulants such as cocaine?"
+  - speaker: patient
+    text: "I take amlodipine and atorvastatin, no allergies. I used cocaine recently."
+  - speaker: clinician
+    text: "I am concerned about acute coronary syndrome and other urgent causes such as pulmonary embolism and aortic dissection. The next step is emergency ECG, blood tests, and monitoring."
+reference_scores:
+  history_taking: 38
+  communication: 18
+  clinical_reasoning: 18
+  empathy: 8
+  closure: 9
+  safety_red_flags: 9
+reference_total_score: 100
+expected_missed_items: []
+expected_strengths:
+  - explored chest pain character and risk factors
+  - asked directly about recreational drug use
+  - identified urgent red flags
+expected_feedback_summary: Strong chest pain assessment with appropriate urgency and safety framing.

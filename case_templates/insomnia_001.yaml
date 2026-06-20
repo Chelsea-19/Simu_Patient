@@ -1,0 +1,67 @@
+case_id: insomnia_001
+title: Chronic insomnia with stress and sleep hygiene issues
+specialty: primary_care
+difficulty: beginner
+chief_complaint: Trouble sleeping for several months
+demographics:
+  age: 44
+  gender: female
+  occupation: project manager
+present_illness:
+  onset: gradual
+  duration: 4 months
+  location: sleep
+  character: difficulty falling and staying asleep
+  severity: 7/10
+  radiation: not applicable
+  associated_symptoms:
+    - daytime fatigue
+    - irritability
+    - poor concentration
+  aggravating_factors:
+    - work emails at night
+    - caffeine
+  relieving_factors:
+    - weekend naps
+past_medical_history:
+  - generalized anxiety symptoms
+medication_history:
+  - melatonin
+allergy_history:
+  - no known drug allergies
+family_history:
+  - mother has anxiety
+social_history:
+  smoking: never smoker
+  alcohol: glass of wine most evenings
+  drug_use: denies
+hidden_information:
+  - item: drinks three large coffees after 3 pm
+    reveal_condition: only reveal if asked about caffeine or evening routines
+    clinical_relevance: caffeine timing is a modifiable contributor to insomnia
+red_flags:
+  - depression
+  - obstructive sleep apnea
+  - sedative misuse
+expected_key_questions:
+  - sleep onset
+  - nighttime awakenings
+  - wake time
+  - daytime impairment
+  - caffeine use
+  - alcohol use
+  - screen use
+  - mood symptoms
+  - snoring or apnea
+  - medication or supplement use
+scoring_rubric:
+  history_taking: 35
+  communication: 25
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "I can't sleep properly anymore, and it's starting to affect my work."

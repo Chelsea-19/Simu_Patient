@@ -1,0 +1,65 @@
+case_id: urinary_tract_infection_001
+title: Dysuria and frequency in young adult
+specialty: primary_care
+difficulty: beginner
+chief_complaint: Burning urination for 2 days
+demographics:
+  age: 27
+  gender: female
+  occupation: retail associate
+present_illness:
+  onset: gradual
+  duration: 2 days
+  location: lower urinary tract
+  character: burning with urination
+  severity: 5/10
+  radiation: none
+  associated_symptoms:
+    - urinary frequency
+    - urgency
+  aggravating_factors:
+    - urinating
+  relieving_factors:
+    - drinking water slightly helps
+past_medical_history:
+  - one previous urinary tract infection
+medication_history:
+  - none
+allergy_history:
+  - rash with trimethoprim-sulfamethoxazole
+family_history:
+  - noncontributory
+social_history:
+  smoking: never smoker
+  alcohol: occasional
+  drug_use: denies
+hidden_information:
+  - item: new sexual partner in the last month
+    reveal_condition: only reveal if asked about sexual history or STI risk
+    clinical_relevance: changes evaluation for urethritis or sexually transmitted infection
+red_flags:
+  - pyelonephritis
+  - pregnancy
+  - sexually transmitted infection
+expected_key_questions:
+  - dysuria
+  - frequency
+  - urgency
+  - fever
+  - flank pain
+  - hematuria
+  - pregnancy possibility
+  - sexual history
+  - allergies
+  - prior infections
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: low
+  cooperativeness: medium
+  health_literacy: medium
+opening_statement: "It burns when I pee and I keep needing to go."

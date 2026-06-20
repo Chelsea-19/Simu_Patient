@@ -1,0 +1,65 @@
+case_id: sore_throat_001
+title: Sore throat with possible streptococcal infection
+specialty: primary_care
+difficulty: beginner
+chief_complaint: Sore throat for 2 days
+demographics:
+  age: 21
+  gender: female
+  occupation: university student
+present_illness:
+  onset: gradual
+  duration: 2 days
+  location: throat
+  character: painful swallowing
+  severity: 5/10
+  radiation: ears
+  associated_symptoms:
+    - fever
+    - swollen neck glands
+  aggravating_factors:
+    - swallowing
+  relieving_factors:
+    - warm tea
+past_medical_history:
+  - no chronic illness
+medication_history:
+  - acetaminophen
+allergy_history:
+  - no known drug allergies
+family_history:
+  - noncontributory
+social_history:
+  smoking: never smoker
+  alcohol: rare
+  drug_use: denies
+hidden_information:
+  - item: roommate was diagnosed with strep throat last week
+    reveal_condition: only reveal if asked about sick contacts or exposures
+    clinical_relevance: increases likelihood of streptococcal pharyngitis
+red_flags:
+  - peritonsillar abscess
+  - epiglottitis
+  - infectious mononucleosis
+expected_key_questions:
+  - fever
+  - cough
+  - nasal symptoms
+  - swallowing difficulty
+  - voice change
+  - neck swelling
+  - sick contacts
+  - rash
+  - allergy history
+  - prior strep infections
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: low
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "My throat hurts a lot, especially when I swallow."

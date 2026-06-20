@@ -1,0 +1,35 @@
+transcript_id: medication_nonadherence_borderline
+case_id: medication_nonadherence_001
+student_level: borderline
+conversation:
+  - speaker: patient
+    text: "I know my numbers are not great, but taking all these pills has been hard."
+  - speaker: clinician
+    text: "Can you tell me which medications you miss and how often you miss doses?"
+  - speaker: patient
+    text: "Mostly metformin and the blood pressure pills near the end of the month."
+  - speaker: clinician
+    text: "Are side effects, beliefs, cost, copays, or access making it difficult?"
+  - speaker: patient
+    text: "The copays get too expensive."
+  - speaker: clinician
+    text: "What is your daily routine and do you have support?"
+  - speaker: patient
+    text: "My schedule changes a lot."
+  - speaker: clinician
+    text: "We can simplify the plan and discuss lower-cost options with the pharmacy."
+reference_scores:
+  history_taking: 29
+  communication: 15
+  clinical_reasoning: 14
+  empathy: 3
+  closure: 7
+  safety_red_flags: 6
+reference_total_score: 74
+expected_missed_items:
+  - health literacy
+  - pharmacy access
+expected_strengths:
+  - identified cost as central barrier
+  - explored missed medications and routine
+expected_feedback_summary: Good adherence-barrier assessment with room for more empathy and health literacy exploration.

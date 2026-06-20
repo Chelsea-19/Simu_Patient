@@ -1,0 +1,66 @@
+case_id: shortness_of_breath_001
+title: Acute shortness of breath with pleuritic pain
+specialty: emergency_medicine
+difficulty: intermediate
+chief_complaint: Shortness of breath since this morning
+demographics:
+  age: 39
+  gender: female
+  occupation: sales executive
+present_illness:
+  onset: sudden
+  duration: 8 hours
+  location: chest
+  character: breathlessness with sharp pain
+  severity: 7/10
+  radiation: right shoulder
+  associated_symptoms:
+    - dry cough
+    - pleuritic chest pain
+  aggravating_factors:
+    - deep breaths
+    - walking
+  relieving_factors:
+    - sitting upright
+past_medical_history:
+  - migraine
+medication_history:
+  - combined oral contraceptive pill
+allergy_history:
+  - no known drug allergies
+family_history:
+  - aunt had a blood clot after surgery
+social_history:
+  smoking: never smoker
+  alcohol: occasional
+  drug_use: denies
+hidden_information:
+  - item: returned from a 12-hour flight two days ago
+    reveal_condition: only reveal if asked about travel, immobility, or clot risk factors
+    clinical_relevance: increases pretest probability of pulmonary embolism
+red_flags:
+  - pulmonary embolism
+  - pneumothorax
+  - pneumonia
+expected_key_questions:
+  - onset
+  - exertional limitation
+  - chest pain character
+  - cough
+  - fever
+  - leg swelling
+  - travel or immobility
+  - hormonal therapy
+  - pregnancy status
+  - prior clots
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: high
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "I suddenly feel short of breath, and it hurts when I take a deep breath."

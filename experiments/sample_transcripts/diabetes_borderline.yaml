@@ -1,0 +1,37 @@
+transcript_id: diabetes_borderline
+case_id: diabetes_followup_001
+student_level: borderline
+conversation:
+  - speaker: patient
+    text: "My sugars have been running high, and I know I need to do better."
+  - speaker: clinician
+    text: "Can you tell me your home glucose readings and whether you have thirst or frequent urination?"
+  - speaker: patient
+    text: "They are high and I am thirsty."
+  - speaker: clinician
+    text: "Are you taking metformin, and any side effects like diarrhea?"
+  - speaker: patient
+    text: "I skip it because it gives me diarrhea."
+  - speaker: clinician
+    text: "What is your diet and exercise like?"
+  - speaker: patient
+    text: "Too many sugary drinks and not much exercise."
+  - speaker: clinician
+    text: "We should adjust the plan, reduce sugary drinks, and follow up with labs."
+reference_scores:
+  history_taking: 25
+  communication: 13
+  clinical_reasoning: 12
+  empathy: 2
+  closure: 6
+  safety_red_flags: 4
+reference_total_score: 62
+expected_missed_items:
+  - foot symptoms
+  - eye screening
+  - kidney screening
+  - cardiovascular risk
+expected_strengths:
+  - identified metformin intolerance and adherence issue
+  - discussed diet and exercise
+expected_feedback_summary: Useful adherence history but incomplete chronic complication screening.

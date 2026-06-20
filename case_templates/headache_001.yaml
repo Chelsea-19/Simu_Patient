@@ -1,0 +1,66 @@
+case_id: headache_001
+title: New severe headache with neurologic concern
+specialty: neurology
+difficulty: intermediate
+chief_complaint: Severe headache this morning
+demographics:
+  age: 42
+  gender: female
+  occupation: accountant
+present_illness:
+  onset: sudden
+  duration: 6 hours
+  location: whole head
+  character: explosive pressure
+  severity: 9/10
+  radiation: neck
+  associated_symptoms:
+    - nausea
+    - light sensitivity
+    - neck stiffness
+  aggravating_factors:
+    - bending forward
+  relieving_factors:
+    - dark room slightly helps
+past_medical_history:
+  - migraine in the past
+medication_history:
+  - sumatriptan as needed
+allergy_history:
+  - no known drug allergies
+family_history:
+  - mother has migraines
+social_history:
+  smoking: never smoker
+  alcohol: occasional wine
+  drug_use: denies
+hidden_information:
+  - item: brief episode of right hand weakness
+    reveal_condition: only reveal if asked about weakness, numbness, speech, or neurologic symptoms
+    clinical_relevance: raises concern for subarachnoid hemorrhage or stroke mimic
+red_flags:
+  - thunderclap headache
+  - meningitis
+  - intracranial hemorrhage
+expected_key_questions:
+  - onset speed
+  - worst headache of life
+  - neurologic symptoms
+  - fever
+  - neck stiffness
+  - vision changes
+  - trauma
+  - anticoagulant use
+  - pregnancy status
+  - previous headache pattern
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: high
+  cooperativeness: medium
+  health_literacy: medium
+opening_statement: "This headache came on so fast, and it is much worse than my usual migraines."

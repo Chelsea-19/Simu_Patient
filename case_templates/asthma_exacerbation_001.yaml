@@ -1,0 +1,67 @@
+case_id: asthma_exacerbation_001
+title: Asthma exacerbation after viral illness
+specialty: emergency_medicine
+difficulty: beginner
+chief_complaint: Wheezing and shortness of breath
+demographics:
+  age: 19
+  gender: female
+  occupation: college student
+present_illness:
+  onset: gradual
+  duration: 1 day
+  location: chest
+  character: wheezing tightness
+  severity: 6/10
+  radiation: not applicable
+  associated_symptoms:
+    - cough
+    - runny nose
+    - chest tightness
+  aggravating_factors:
+    - climbing stairs
+    - cold air
+  relieving_factors:
+    - albuterol helps briefly
+past_medical_history:
+  - asthma since childhood
+medication_history:
+  - albuterol inhaler
+allergy_history:
+  - cat dander
+family_history:
+  - father has asthma
+social_history:
+  smoking: never smoker
+  alcohol: rare
+  drug_use: denies
+hidden_information:
+  - item: ran out of inhaled corticosteroid 3 weeks ago
+    reveal_condition: only reveal if asked about controller medication or adherence
+    clinical_relevance: lack of controller therapy contributed to exacerbation
+red_flags:
+  - severe asthma attack
+  - pneumonia
+  - anaphylaxis
+expected_key_questions:
+  - shortness of breath severity
+  - wheeze
+  - cough and fever
+  - rescue inhaler use
+  - controller medication use
+  - prior hospitalizations
+  - triggers
+  - allergies
+  - ability to speak
+  - chest pain
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "My chest feels tight and my inhaler is not lasting very long."

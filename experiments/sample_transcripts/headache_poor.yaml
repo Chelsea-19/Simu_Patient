@@ -1,0 +1,33 @@
+transcript_id: headache_poor
+case_id: headache_001
+student_level: poor
+conversation:
+  - speaker: patient
+    text: "This headache came on so fast, and it is much worse than my usual migraines."
+  - speaker: clinician
+    text: "Where is the headache and how bad is it?"
+  - speaker: patient
+    text: "Everywhere, nine out of ten."
+  - speaker: clinician
+    text: "Take your migraine medicine and rest in a dark room."
+reference_scores:
+  history_taking: 8
+  communication: 5
+  clinical_reasoning: 2
+  empathy: 0
+  closure: 1
+  safety_red_flags: 0
+reference_total_score: 16
+expected_missed_items:
+  - onset speed
+  - worst headache of life
+  - neurologic symptoms
+  - fever
+  - neck stiffness
+  - vision changes
+  - trauma
+  - anticoagulant use
+  - pregnancy status
+expected_strengths:
+  - asked about location and severity
+expected_feedback_summary: Unsafe headache assessment with no red flag screening.

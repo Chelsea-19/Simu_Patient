@@ -1,0 +1,66 @@
+case_id: fever_001
+title: Fever after travel with systemic symptoms
+specialty: infectious_disease
+difficulty: intermediate
+chief_complaint: Fever and body aches for 3 days
+demographics:
+  age: 34
+  gender: male
+  occupation: software engineer
+present_illness:
+  onset: gradual
+  duration: 3 days
+  location: generalized
+  character: fever with chills and myalgia
+  severity: 6/10
+  radiation: not applicable
+  associated_symptoms:
+    - chills
+    - headache
+    - muscle aches
+  aggravating_factors:
+    - activity
+  relieving_factors:
+    - acetaminophen temporarily helps
+past_medical_history:
+  - no chronic illness
+medication_history:
+  - acetaminophen
+allergy_history:
+  - no known drug allergies
+family_history:
+  - noncontributory
+social_history:
+  smoking: never smoker
+  alcohol: occasional
+  drug_use: denies
+hidden_information:
+  - item: returned from a hiking trip in Thailand 10 days ago
+    reveal_condition: only reveal if asked about travel, mosquito exposure, or outdoor activities
+    clinical_relevance: travel exposure changes differential for dengue, malaria, and other infections
+red_flags:
+  - sepsis
+  - malaria
+  - dengue fever
+expected_key_questions:
+  - fever pattern
+  - chills
+  - rash
+  - respiratory symptoms
+  - urinary symptoms
+  - abdominal symptoms
+  - travel history
+  - mosquito or tick exposure
+  - sick contacts
+  - vaccination history
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: medium
+  cooperativeness: high
+  health_literacy: medium
+opening_statement: "I've had fever and chills for three days and I feel completely wiped out."

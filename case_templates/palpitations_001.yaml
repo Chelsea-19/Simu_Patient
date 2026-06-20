@@ -1,0 +1,66 @@
+case_id: palpitations_001
+title: Episodic palpitations with stimulant exposure
+specialty: cardiology
+difficulty: intermediate
+chief_complaint: Racing heartbeat episodes
+demographics:
+  age: 31
+  gender: male
+  occupation: investment analyst
+present_illness:
+  onset: sudden episodes
+  duration: 2 weeks
+  location: chest
+  character: rapid pounding heartbeat
+  severity: 6/10
+  radiation: not applicable
+  associated_symptoms:
+    - lightheadedness
+    - mild chest tightness
+  aggravating_factors:
+    - stress
+    - late nights
+  relieving_factors:
+    - sitting down
+past_medical_history:
+  - anxiety
+medication_history:
+  - none
+allergy_history:
+  - no known drug allergies
+family_history:
+  - cousin died suddenly at 35
+social_history:
+  smoking: never smoker
+  alcohol: weekend binge drinking
+  drug_use: denies unless asked about stimulants
+hidden_information:
+  - item: uses high-dose caffeine pills during work deadlines
+    reveal_condition: only reveal if asked about caffeine, supplements, or stimulants
+    clinical_relevance: stimulant exposure can trigger palpitations and arrhythmia
+red_flags:
+  - syncope
+  - inherited arrhythmia
+  - supraventricular tachycardia
+expected_key_questions:
+  - episode onset and duration
+  - heart rate description
+  - chest pain
+  - syncope
+  - shortness of breath
+  - caffeine use
+  - stimulant or supplement use
+  - alcohol use
+  - thyroid symptoms
+  - family sudden death
+scoring_rubric:
+  history_taking: 40
+  communication: 20
+  clinical_reasoning: 20
+  empathy: 10
+  closure: 10
+patient_personality:
+  anxiety: high
+  cooperativeness: medium
+  health_literacy: medium
+opening_statement: "My heart keeps racing out of nowhere, and it makes me feel lightheaded."

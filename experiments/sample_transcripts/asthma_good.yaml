@@ -1,0 +1,38 @@
+transcript_id: asthma_good
+case_id: asthma_exacerbation_001
+student_level: good
+conversation:
+  - speaker: patient
+    text: "My chest feels tight and my inhaler is not lasting very long."
+  - speaker: clinician
+    text: "I understand that is scary. Can you speak full sentences and how severe is your shortness of breath?"
+  - speaker: patient
+    text: "I can speak, but stairs are hard."
+  - speaker: clinician
+    text: "Any wheeze, cough, fever, chest pain, allergies, or triggers like cold air?"
+  - speaker: patient
+    text: "Wheezing and cough after a cold, no fever."
+  - speaker: clinician
+    text: "How often are you using the rescue inhaler, and have you missed or stopped your controller medication?"
+  - speaker: patient
+    text: "I ran out of my controller inhaler."
+  - speaker: clinician
+    text: "Have you ever been hospitalized for asthma or needed intensive care?"
+  - speaker: patient
+    text: "No."
+  - speaker: clinician
+    text: "The plan is to assess your breathing now, treat the exacerbation, restart controller therapy, and review when to seek emergency care."
+reference_scores:
+  history_taking: 35
+  communication: 17
+  clinical_reasoning: 16
+  empathy: 8
+  closure: 8
+  safety_red_flags: 8
+reference_total_score: 92
+expected_missed_items: []
+expected_strengths:
+  - assessed severity and rescue inhaler use
+  - identified controller non-use
+  - gave safety plan
+expected_feedback_summary: Strong asthma exacerbation history with appropriate medication and safety assessment.
