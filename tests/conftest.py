@@ -11,6 +11,7 @@ def reset_runtime_state(monkeypatch):
     monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
     monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.delenv("APP_ROLE", raising=False)
 
     from app.core.config import get_settings
     import app.db.session as db_session

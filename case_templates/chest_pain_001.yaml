@@ -66,3 +66,122 @@ patient_personality:
   cooperativeness: medium
   health_literacy: low
 opening_statement: "Doctor, I have this heavy pressure in my chest and I'm really worried."
+vital_signs:
+  kind: vital_signs
+  unlock_condition: history_taking_or_later
+  time_cost: 2
+  result:
+    blood_pressure: "168/96 mmHg"
+    heart_rate: "104 bpm, regular"
+    respiratory_rate: "22 breaths/min"
+    oxygen_saturation: "96% on room air"
+    temperature: "36.8 C"
+    appearance: "anxious and diaphoretic"
+physical_examination:
+  cardiovascular:
+    kind: physical_exam
+    unlock_condition: history_taking_or_later
+    time_cost: 4
+    result:
+      general: "Anxious, pale, and diaphoretic"
+      pulse: "Tachycardic and regular"
+      heart_sounds: "Normal S1 and S2; no new murmur"
+      peripheral_pulses: "Equal in both arms"
+      chest_wall: "Pain is not reproducible with palpation"
+  respiratory:
+    kind: physical_exam
+    unlock_condition: history_taking_or_later
+    time_cost: 3
+    result:
+      work_of_breathing: "Mildly increased"
+      auscultation: "Clear breath sounds bilaterally"
+      percussion: "Resonant bilaterally"
+investigations:
+  ecg:
+    kind: ecg
+    unlock_condition: examination_or_later
+    time_cost: 5
+    result:
+      rhythm: "Sinus tachycardia at 104 bpm"
+      st_t_changes: "1 mm horizontal ST depression in V4-V6"
+      st_elevation: "No ST elevation"
+      impression: "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
+  troponin:
+    kind: lab
+    unlock_condition: examination_or_later
+    time_cost: 10
+    result:
+      test: "High-sensitivity cardiac troponin I"
+      value: "78 ng/L"
+      reference_range: "less than 14 ng/L"
+      interpretation: "Elevated"
+  complete_blood_count:
+    kind: lab
+    unlock_condition: examination_or_later
+    time_cost: 8
+    result:
+      hemoglobin: "145 g/L"
+      white_cell_count: "9.8 x 10^9/L"
+      platelets: "238 x 10^9/L"
+      interpretation: "No anemia, marked leukocytosis, or thrombocytopenia"
+safety_supervision:
+  risk_level: high
+  history_topic_keywords:
+    pain_radiation:
+      - radiat
+      - travel
+      - left arm
+      - jaw
+      - back
+    cardiovascular_risk_factors:
+      - cardiovascular risk
+      - cardiac risk
+      - smoking
+      - smoker
+      - hypertension
+      - blood pressure
+      - cholesterol
+      - hyperlipidemia
+      - diabetes
+      - family history
+    drug_or_stimulant_use:
+      - cocaine
+      - recreational drug
+      - stimulant
+      - amphetamine
+      - substance use
+  life_threatening_diagnosis_keywords:
+    - acute coronary syndrome
+    - myocardial infarction
+    - nstemi
+    - unstable angina
+    - cardiac ischemia
+  critical_tests:
+    - ecg
+  unsafe_disposition_keywords:
+    - home
+    - discharge
+    - outpatient
+  escalation_keywords:
+    - emergency
+    - urgent
+    - admit
+    - admission
+    - cardiology
+    - hospital
+    - ambulance
+    - transfer
+    - monitored care
+  safety_net_keywords:
+    - return
+    - emergency
+    - deterior
+    - worsen
+    - seek urgent
+    - do not discharge
+    - escalate
+  block_feedback: "Current management has not adequately excluded a potentially life-threatening cause of chest pain. Recheck danger signs, necessary investigations, and the appropriate care setting."
+  reflection_questions:
+    - "Which time-critical causes remain insufficiently excluded?"
+    - "What investigation could materially change the disposition decision?"
+    - "Is the proposed care setting appropriate for the unresolved risk?"

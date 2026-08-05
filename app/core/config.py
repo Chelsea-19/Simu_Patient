@@ -7,7 +7,7 @@ Settings are read from Streamlit secrets first, then environment variables.
 from __future__ import annotations
 
 from functools import lru_cache
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic_settings import BaseSettings
 
@@ -17,8 +17,8 @@ class AppSettings(BaseSettings):
 
     APP_NAME: str = "SimuPatient"
     APP_ENV: str = "production"
-    APP_VERSION: str = "2.0.0"
     DEBUG: bool = False
+    APP_ROLE: Literal["learner", "instructor"] = "learner"
 
     DATABASE_URL: str = "sqlite:///simupatient.db"
 
@@ -46,6 +46,11 @@ class AppSettings(BaseSettings):
     def selected_provider(self) -> str:
         """Normalized provider name used by the provider factory."""
         return self.LLM_PROVIDER.strip().lower()
+
+    @property
+    def is_instructor(self) -> bool:
+        """Whether server-side instructor features are enabled."""
+        return self.APP_ROLE == "instructor"
 
     @property
     def resolved_gemini_api_key(self) -> Optional[str]:

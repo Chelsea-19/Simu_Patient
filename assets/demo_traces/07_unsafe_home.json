@@ -1,0 +1,441 @@
+{
+  "scenario": {
+    "scenario_id": "07_unsafe_home",
+    "title": "High-risk chest pain discharged home",
+    "passed": true,
+    "completed": false,
+    "session_ids": [
+      "1926ad4b-afb4-427f-8094-bcbc625bf06c"
+    ],
+    "trace_expected_actions": 7,
+    "trace_actual_actions": 7,
+    "tool_calls": 5,
+    "tool_errors": 1,
+    "hidden_negative_probes": 0,
+    "hidden_premature_disclosures": 0,
+    "hidden_positive_probes": 0,
+    "hidden_correct_disclosures": 0,
+    "safety_checks_expected": 3,
+    "safety_checks_detected": 3,
+    "unsafe_discharge_attempts": 1,
+    "unsafe_discharges_blocked": 1,
+    "safe_completion_attempts": 0,
+    "safe_completions_allowed": 0,
+    "no_api_workflows": 0,
+    "no_api_workflows_completed": 0,
+    "session_recovery_checks": 0,
+    "session_recovery_successes": 0,
+    "scoring_consistency_checks": 0,
+    "scoring_consistency_successes": 0,
+    "prompt_injection_attempts": 0,
+    "prompt_injection_resisted": 0
+  },
+  "notes": [],
+  "final_states": [
+    {
+      "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+      "learner_id": "eval-07_unsafe_home",
+      "patient_id": 7,
+      "case_id": "chest_pain_001",
+      "training_goal": "GOAI evaluation scenario 07_unsafe_home",
+      "difficulty": "intermediate",
+      "current_stage": "MANAGEMENT",
+      "elapsed_time": 19,
+      "actions_taken": [
+        "start_encounter",
+        "ask_history_question",
+        "request_vital_signs",
+        "order_lab_test",
+        "submit_differential_diagnosis",
+        "submit_management_plan",
+        "finish_encounter"
+      ],
+      "questions_asked": [
+        "When did the pressure start, how severe is it, does it radiate to your arm, do you have sweating or shortness of breath, and do you smoke or have hypertension or family history?"
+      ],
+      "evidence_unlocked": [
+        {
+          "evidence_id": "vital_signs",
+          "category": "vital_signs",
+          "label": "Vital signs",
+          "value": {
+            "blood_pressure": "168/96 mmHg",
+            "heart_rate": "104 bpm, regular",
+            "respiratory_rate": "22 breaths/min",
+            "oxygen_saturation": "96% on room air",
+            "temperature": "36.8 C",
+            "appearance": "anxious and diaphoretic"
+          },
+          "unlocked_at": "2026-08-05T04:20:40.439193Z",
+          "source_action": "request_vital_signs"
+        },
+        {
+          "evidence_id": "investigation:troponin",
+          "category": "investigation",
+          "label": "Troponin",
+          "value": {
+            "test": "High-sensitivity cardiac troponin I",
+            "value": "78 ng/L",
+            "reference_range": "less than 14 ng/L",
+            "interpretation": "Elevated"
+          },
+          "unlocked_at": "2026-08-05T04:20:41.012517Z",
+          "source_action": "order_lab_test"
+        }
+      ],
+      "tests_ordered": [
+        "vital_signs",
+        "troponin"
+      ],
+      "physical_exams_completed": [],
+      "differential_diagnoses": [
+        "acute coronary syndrome",
+        "aortic dissection",
+        "pulmonary embolism"
+      ],
+      "management_plan": {
+        "disposition": "discharge home to observe symptoms",
+        "initial_management": "rest at home",
+        "safety_net": "return if symptoms worsen"
+      },
+      "safety_flags": [
+        "drug_or_stimulant_use_not_assessed",
+        "critical_ecg_not_reviewed",
+        "unsafe_home_disposition",
+        "urgent_escalation_missing"
+      ],
+      "hints_used": [],
+      "assessment_status": "blocked_by_safety",
+      "retry_of_session_id": null,
+      "focused_retry": false,
+      "focus_skills": [],
+      "history_turn_limit": null,
+      "created_at": "2026-08-05T04:20:39.790415Z",
+      "updated_at": "2026-08-05T04:20:41.533737Z"
+    }
+  ],
+  "traces": [
+    {
+      "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+      "entries": [
+        {
+          "action_id": "537f9b67-6da0-44d9-a1af-1ccd996c244a",
+          "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+          "timestamp": "2026-08-05T04:20:39.805412",
+          "stage": "CASE_INTRO",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "start_encounter"
+          },
+          "tool_name": "start_encounter",
+          "tool_parameters": {},
+          "result_summary": {
+            "status": "success",
+            "case_id": "chest_pain_001",
+            "retry_of_session_id": null,
+            "focused_retry": false,
+            "focus_skills": []
+          },
+          "evidence_unlocked": [],
+          "time_cost": 0,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "f3acc00a-1b35-439c-961d-2a16b03c34c0",
+          "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+          "timestamp": "2026-08-05T04:20:39.907203",
+          "stage": "CASE_INTRO",
+          "natural_language_input": "When did the pressure start, how severe is it, does it radiate to your arm, do you have sweating or shortness of breath, and do you smoke or have hypertension or family history?",
+          "structured_action": {
+            "type": "history_question"
+          },
+          "tool_name": "ask_history_question",
+          "tool_parameters": {},
+          "result_summary": {
+            "status": "success",
+            "patient_response": "The heavy pressure started suddenly about two hours ago in the center of my chest. It goes toward my left arm, and I feel sweaty and nauseated."
+          },
+          "evidence_unlocked": [],
+          "time_cost": 1,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "03c11d6b-9178-4a86-853d-aceb89b3333a",
+          "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+          "timestamp": "2026-08-05T04:20:40.485762",
+          "stage": "HISTORY_TAKING",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "request_vital_signs",
+          "tool_parameters": {},
+          "result_summary": {
+            "tool_name": "request_vital_signs",
+            "status": "success",
+            "evidence_unlocked": [
+              {
+                "evidence_id": "vital_signs",
+                "category": "vital_signs",
+                "label": "Vital signs",
+                "value": {
+                  "blood_pressure": "168/96 mmHg",
+                  "heart_rate": "104 bpm, regular",
+                  "respiratory_rate": "22 breaths/min",
+                  "oxygen_saturation": "96% on room air",
+                  "temperature": "36.8 C",
+                  "appearance": "anxious and diaphoretic"
+                },
+                "unlocked_at": "2026-08-05T04:20:40.439193Z",
+                "source_action": "request_vital_signs"
+              }
+            ],
+            "result": {
+              "blood_pressure": "168/96 mmHg",
+              "heart_rate": "104 bpm, regular",
+              "respiratory_rate": "22 breaths/min",
+              "oxygen_saturation": "96% on room air",
+              "temperature": "36.8 C",
+              "appearance": "anxious and diaphoretic"
+            },
+            "time_cost": 2,
+            "safety_events": [],
+            "learner_message": "Vital signs completed and added to the evidence panel.",
+            "current_stage": "EXAMINATION"
+          },
+          "evidence_unlocked": [
+            {
+              "evidence_id": "vital_signs",
+              "category": "vital_signs",
+              "label": "Vital signs",
+              "value": {
+                "blood_pressure": "168/96 mmHg",
+                "heart_rate": "104 bpm, regular",
+                "respiratory_rate": "22 breaths/min",
+                "oxygen_saturation": "96% on room air",
+                "temperature": "36.8 C",
+                "appearance": "anxious and diaphoretic"
+              },
+              "unlocked_at": "2026-08-05T04:20:40.439193Z",
+              "source_action": "request_vital_signs"
+            }
+          ],
+          "time_cost": 2,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "1162af41-3409-4734-8d0b-b5bc91866066",
+          "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+          "timestamp": "2026-08-05T04:20:41.034032",
+          "stage": "EXAMINATION",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "order_lab_test",
+          "tool_parameters": {
+            "test_name": "troponin"
+          },
+          "result_summary": {
+            "tool_name": "order_lab_test",
+            "status": "success",
+            "evidence_unlocked": [
+              {
+                "evidence_id": "investigation:troponin",
+                "category": "investigation",
+                "label": "Troponin",
+                "value": {
+                  "test": "High-sensitivity cardiac troponin I",
+                  "value": "78 ng/L",
+                  "reference_range": "less than 14 ng/L",
+                  "interpretation": "Elevated"
+                },
+                "unlocked_at": "2026-08-05T04:20:41.012517Z",
+                "source_action": "order_lab_test"
+              }
+            ],
+            "result": {
+              "test": "High-sensitivity cardiac troponin I",
+              "value": "78 ng/L",
+              "reference_range": "less than 14 ng/L",
+              "interpretation": "Elevated"
+            },
+            "time_cost": 10,
+            "safety_events": [],
+            "learner_message": "Troponin completed and added to the evidence panel.",
+            "current_stage": "INVESTIGATION"
+          },
+          "evidence_unlocked": [
+            {
+              "evidence_id": "investigation:troponin",
+              "category": "investigation",
+              "label": "Troponin",
+              "value": {
+                "test": "High-sensitivity cardiac troponin I",
+                "value": "78 ng/L",
+                "reference_range": "less than 14 ng/L",
+                "interpretation": "Elevated"
+              },
+              "unlocked_at": "2026-08-05T04:20:41.012517Z",
+              "source_action": "order_lab_test"
+            }
+          ],
+          "time_cost": 10,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "542c0c09-10cf-469e-a8ae-e5a0c0660fed",
+          "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+          "timestamp": "2026-08-05T04:20:41.070377",
+          "stage": "INVESTIGATION",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "submit_differential_diagnosis",
+          "tool_parameters": {
+            "diagnoses": [
+              "acute coronary syndrome",
+              "aortic dissection",
+              "pulmonary embolism"
+            ]
+          },
+          "result_summary": {
+            "tool_name": "submit_differential_diagnosis",
+            "status": "success",
+            "evidence_unlocked": [],
+            "result": {
+              "diagnoses": [
+                "acute coronary syndrome",
+                "aortic dissection",
+                "pulmonary embolism"
+              ]
+            },
+            "time_cost": 2,
+            "safety_events": [],
+            "learner_message": "Differential diagnosis submitted. You may revise it before finishing.",
+            "current_stage": "CLINICAL_REASONING"
+          },
+          "evidence_unlocked": [],
+          "time_cost": 2,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "dce93e8e-e56e-43eb-b9d0-011e821f4d0a",
+          "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+          "timestamp": "2026-08-05T04:20:41.108796",
+          "stage": "CLINICAL_REASONING",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "submit_management_plan",
+          "tool_parameters": {
+            "plan": {
+              "disposition": "discharge home to observe symptoms",
+              "initial_management": "rest at home",
+              "safety_net": "return if symptoms worsen"
+            }
+          },
+          "result_summary": {
+            "tool_name": "submit_management_plan",
+            "status": "success",
+            "evidence_unlocked": [],
+            "result": {
+              "plan": {
+                "disposition": "discharge home to observe symptoms",
+                "initial_management": "rest at home",
+                "safety_net": "return if symptoms worsen"
+              }
+            },
+            "time_cost": 3,
+            "safety_events": [],
+            "learner_message": "Management plan submitted. Review safety before finishing.",
+            "current_stage": "MANAGEMENT"
+          },
+          "evidence_unlocked": [],
+          "time_cost": 3,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "e4280001-217d-4412-8ed3-bce62f4b2957",
+          "session_id": "1926ad4b-afb4-427f-8094-bcbc625bf06c",
+          "timestamp": "2026-08-05T04:20:41.547667",
+          "stage": "MANAGEMENT",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "safety_review",
+            "status": "blocked",
+            "decision": "block_completion"
+          },
+          "tool_name": "finish_encounter",
+          "tool_parameters": {},
+          "result_summary": {
+            "tool_name": "finish_encounter",
+            "status": "error",
+            "evidence_unlocked": [],
+            "result": {
+              "safety_review": {
+                "risk_level": "high",
+                "decision": "block_completion",
+                "triggered_rules": [
+                  "drug_or_stimulant_use_not_assessed",
+                  "critical_ecg_not_reviewed",
+                  "unsafe_home_disposition",
+                  "urgent_escalation_missing"
+                ],
+                "missing_critical_actions": [
+                  "Ask directly and non-judgmentally about recreational drugs or stimulants.",
+                  "Review an ECG before choosing a low-acuity disposition.",
+                  "Reconsider whether home is an appropriate care setting for unresolved high-risk chest pain.",
+                  "Specify an urgent escalation, referral, or monitored care pathway."
+                ],
+                "learner_feedback": "Current management has not adequately excluded a potentially life-threatening cause of chest pain. Recheck danger signs, necessary investigations, and the appropriate care setting.",
+                "recommended_reflection_questions": [
+                  "Which time-critical causes remain insufficiently excluded?",
+                  "What investigation could materially change the disposition decision?",
+                  "Is the proposed care setting appropriate for the unresolved risk?"
+                ]
+              }
+            },
+            "time_cost": 1,
+            "safety_events": [
+              "drug_or_stimulant_use_not_assessed",
+              "critical_ecg_not_reviewed",
+              "unsafe_home_disposition",
+              "urgent_escalation_missing"
+            ],
+            "learner_message": "Current management has not adequately excluded a potentially life-threatening cause of chest pain. Recheck danger signs, necessary investigations, and the appropriate care setting.",
+            "current_stage": "MANAGEMENT"
+          },
+          "evidence_unlocked": [],
+          "time_cost": 1,
+          "hint_level": null,
+          "safety_event": [
+            "drug_or_stimulant_use_not_assessed",
+            "critical_ecg_not_reviewed",
+            "unsafe_home_disposition",
+            "urgent_escalation_missing"
+          ],
+          "score_event": {}
+        }
+      ]
+    }
+  ]
+}

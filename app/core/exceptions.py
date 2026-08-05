@@ -37,10 +37,8 @@ class LLMJsonParseError(SimuPatientError):
     """Raised when the LLM output cannot be parsed as valid JSON."""
 
     def __init__(self, raw_output: str = ""):
-        detail = "Failed to parse LLM output as JSON"
-        if raw_output:
-            detail += f" - raw output (truncated): {raw_output[:200]}"
-        super().__init__(message=detail)
+        self.raw_output = raw_output
+        super().__init__(message="Failed to parse LLM output as JSON; raw content suppressed")
 
 
 class LLMAuthenticationError(SimuPatientError):

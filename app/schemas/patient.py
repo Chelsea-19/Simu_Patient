@@ -5,9 +5,11 @@ Request / response schemas (DTOs) for patient-related endpoints.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from pydantic import BaseModel, Field
+
+from app.schemas.case_views import LearnerVisibleCase
 
 
 # ── Requests ─────────────────────────────────────────────────────────────
@@ -30,22 +32,18 @@ class PatientCreateRequest(BaseModel):
 # ── Responses ────────────────────────────────────────────────────────────
 
 class PatientProfileResponse(BaseModel):
-    """Returned when a patient is created or queried."""
+    """Learner-safe patient response."""
 
     id: int
-    name: str
-    age: str
-    gender: str
-    chief_complaint: str
-    profile: Dict[str, Any]  # the full JSON profile
+    case: LearnerVisibleCase
     created_at: datetime
 
 
 class PatientCreateResponse(BaseModel):
-    """Response for POST /patients/create."""
+    """Learner-safe response for patient creation."""
 
     id: int
-    profile: Dict[str, Any]
+    case: LearnerVisibleCase
 
 
 class PatientListResponse(BaseModel):

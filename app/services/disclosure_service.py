@@ -6,6 +6,7 @@ import json
 from typing import Dict, Any
 
 from app.core.logging import get_logger
+from app.evaluation.disclosure_metrics import deterministic_revealed_items
 from app.providers.base import BaseLLMProvider
 from app.models.session_state import SessionState
 
@@ -70,6 +71,21 @@ class DisclosureService:
         try:
             logger.info("Evaluating state transition & disclosure...")
             result = self._provider.generate_json(messages)
+            profile = json.loads(profile_json)
+            hidden_items = profile.get("hidden_information") or []
+            if not hidden_items and profile.get("hidden_info"):
+                hidden_items = [
+                    {
+                        "item": str(profile["hidden_info"]),
+                        "reveal_condition": "only reveal when asked directly about this topic",
+                        "clinical_relevance": "",
+                    }
+                ]
+            revealed_items = deterministic_revealed_items(user_input, hidden_items)
+            result["revealed_hidden_items"] = list(revealed_items)
+            result["should_reveal_hidden"] = bool(
+                current_state.hidden_info_revealed or revealed_items
+            )
             return result
         except Exception as e:
             logger.error("State eval failed: %s", e)
