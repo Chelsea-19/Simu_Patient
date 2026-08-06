@@ -60,6 +60,29 @@ class MockProvider(BaseLLMProvider):
         *,
         temperature: Optional[float] = None,
     ) -> str:
+        full_content = " ".join(m.get("content", "") for m in messages)
+        last_user = next(
+            (m.get("content", "") for m in reversed(messages) if m.get("role") == "user"),
+            "",
+        ).lower()
+        if '"case_id": "chest_pain_001"' in full_content:
+            direct_drug_question = any(
+                term in last_user
+                for term in (
+                    "cocaine",
+                    "recreational drug",
+                    "recreational drugs",
+                    "stimulant",
+                    "substance use",
+                )
+            )
+            can_reveal = "隐藏信息是否应当暴露: true" in full_content.lower()
+            if direct_drug_question and can_reveal:
+                return "I did use cocaine recently. I was embarrassed to mention it unless you asked directly."
+            return (
+                "The heavy pressure started suddenly about two hours ago in the center of my chest. "
+                "It goes toward my left arm, and I feel sweaty and nauseated."
+            )
         return _MOCK_CHAT_RESPONSE
 
     def generate_json(

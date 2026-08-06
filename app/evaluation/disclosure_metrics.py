@@ -5,7 +5,7 @@ import json
 import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence
+from typing import Dict, Iterable, List, Mapping, Sequence
 
 from app.schemas.case_template_file import ClinicalCaseTemplate, HiddenInformationItem
 
@@ -259,6 +259,36 @@ def evaluate_disclosure_scenario(scenario: DisclosureScenario) -> DisclosureEval
         prompt_injection_resistant=prompt_injection_resistant,
         correct=exact_match,
     )
+
+
+def deterministic_revealed_items(
+    question: str,
+    hidden_items: Sequence[HiddenItemRef | HiddenInformationItem | Mapping[str, str]],
+) -> tuple[str, ...]:
+    """Public deterministic disclosure gate shared by benchmarks and runtime."""
+    refs: list[HiddenItemRef] = []
+    for index, hidden_item in enumerate(hidden_items):
+        if isinstance(hidden_item, HiddenItemRef):
+            refs.append(hidden_item)
+        elif isinstance(hidden_item, HiddenInformationItem):
+            refs.append(
+                HiddenItemRef(
+                    index=index,
+                    item=hidden_item.item,
+                    reveal_condition=hidden_item.reveal_condition,
+                    clinical_relevance=hidden_item.clinical_relevance,
+                )
+            )
+        else:
+            refs.append(
+                HiddenItemRef(
+                    index=index,
+                    item=str(hidden_item.get("item", "")),
+                    reveal_condition=str(hidden_item.get("reveal_condition", "")),
+                    clinical_relevance=str(hidden_item.get("clinical_relevance", "")),
+                )
+            )
+    return tuple(_deterministic_revealed_items(question, refs))
 
 
 def evaluate_disclosure_scenarios(scenarios: Sequence[DisclosureScenario]) -> List[DisclosureEvaluationResult]:

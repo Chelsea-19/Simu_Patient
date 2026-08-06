@@ -4,7 +4,7 @@ Request / response schemas for assessment (evaluation) endpoints.
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -48,6 +48,8 @@ class AssessmentResult(BaseModel):
     latency_ms: Optional[float] = None
     model_used: Optional[str] = None
     rubric_version: Optional[str] = None
+    learning_profile: dict[str, Any] | None = None
+    remediation_plan: dict[str, Any] | None = None
 
     model_config = {"protected_namespaces": ()}
 

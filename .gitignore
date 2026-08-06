@@ -1,6 +1,8 @@
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
+*.pyd
 *.egg-info/
 dist/
 build/
@@ -11,14 +13,17 @@ build/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+.coverage
+htmlcov/
 
 # Virtual environments
 venv/
 .venv/
 env/
 
-# Environment and secrets
+# Local configuration and secrets
 .env
+.env.*
 !.env.example
 .streamlit/secrets.toml
 
@@ -35,3 +40,9 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+/tmp/

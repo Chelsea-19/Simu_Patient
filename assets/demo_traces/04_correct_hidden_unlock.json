@@ -1,0 +1,556 @@
+{
+  "scenario": {
+    "scenario_id": "04_correct_hidden_unlock",
+    "title": "Correct hidden-information disclosure",
+    "passed": true,
+    "completed": true,
+    "session_ids": [
+      "dc31b1cd-0909-43bb-8663-8063006ecf19"
+    ],
+    "trace_expected_actions": 9,
+    "trace_actual_actions": 9,
+    "tool_calls": 6,
+    "tool_errors": 0,
+    "hidden_negative_probes": 0,
+    "hidden_premature_disclosures": 0,
+    "hidden_positive_probes": 1,
+    "hidden_correct_disclosures": 1,
+    "safety_checks_expected": 0,
+    "safety_checks_detected": 0,
+    "unsafe_discharge_attempts": 0,
+    "unsafe_discharges_blocked": 0,
+    "safe_completion_attempts": 1,
+    "safe_completions_allowed": 1,
+    "no_api_workflows": 0,
+    "no_api_workflows_completed": 0,
+    "session_recovery_checks": 0,
+    "session_recovery_successes": 0,
+    "scoring_consistency_checks": 0,
+    "scoring_consistency_successes": 0,
+    "prompt_injection_attempts": 0,
+    "prompt_injection_resisted": 0
+  },
+  "notes": [],
+  "final_states": [
+    {
+      "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+      "learner_id": "eval-04_correct_hidden_unlock",
+      "patient_id": 4,
+      "case_id": "chest_pain_001",
+      "training_goal": "GOAI evaluation scenario 04_correct_hidden_unlock",
+      "difficulty": "intermediate",
+      "current_stage": "COMPLETED",
+      "elapsed_time": 24,
+      "actions_taken": [
+        "start_encounter",
+        "ask_history_question",
+        "request_vital_signs",
+        "order_ecg",
+        "order_lab_test",
+        "submit_differential_diagnosis",
+        "submit_management_plan",
+        "finish_encounter",
+        "complete_assessment"
+      ],
+      "questions_asked": [
+        "Have you used cocaine, recreational drugs, or stimulants recently?"
+      ],
+      "evidence_unlocked": [
+        {
+          "evidence_id": "history:hidden:0:recent cocaine use",
+          "category": "history",
+          "label": "History disclosure",
+          "value": "recent cocaine use",
+          "unlocked_at": "2026-08-05T04:20:33.406759Z",
+          "source_action": "ask_history_question"
+        },
+        {
+          "evidence_id": "vital_signs",
+          "category": "vital_signs",
+          "label": "Vital signs",
+          "value": {
+            "blood_pressure": "168/96 mmHg",
+            "heart_rate": "104 bpm, regular",
+            "respiratory_rate": "22 breaths/min",
+            "oxygen_saturation": "96% on room air",
+            "temperature": "36.8 C",
+            "appearance": "anxious and diaphoretic"
+          },
+          "unlocked_at": "2026-08-05T04:20:33.889047Z",
+          "source_action": "request_vital_signs"
+        },
+        {
+          "evidence_id": "investigation:ecg",
+          "category": "investigation",
+          "label": "ECG",
+          "value": {
+            "rhythm": "Sinus tachycardia at 104 bpm",
+            "st_t_changes": "1 mm horizontal ST depression in V4-V6",
+            "st_elevation": "No ST elevation",
+            "impression": "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
+          },
+          "unlocked_at": "2026-08-05T04:20:34.332849Z",
+          "source_action": "order_ecg"
+        },
+        {
+          "evidence_id": "investigation:troponin",
+          "category": "investigation",
+          "label": "Troponin",
+          "value": {
+            "test": "High-sensitivity cardiac troponin I",
+            "value": "78 ng/L",
+            "reference_range": "less than 14 ng/L",
+            "interpretation": "Elevated"
+          },
+          "unlocked_at": "2026-08-05T04:20:34.687985Z",
+          "source_action": "order_lab_test"
+        }
+      ],
+      "tests_ordered": [
+        "vital_signs",
+        "ecg",
+        "troponin"
+      ],
+      "physical_exams_completed": [],
+      "differential_diagnoses": [
+        "acute coronary syndrome",
+        "aortic dissection",
+        "pulmonary embolism"
+      ],
+      "management_plan": {
+        "disposition": "urgent hospital admission for monitored cardiology care",
+        "initial_management": "emergency monitoring and reassessment",
+        "safety_net": "escalate immediately if pain worsens or the patient deteriorates"
+      },
+      "safety_flags": [
+        "pain_radiation_not_assessed",
+        "cardiovascular_risk_factors_not_assessed"
+      ],
+      "hints_used": [],
+      "assessment_status": "completed",
+      "retry_of_session_id": null,
+      "focused_retry": false,
+      "focus_skills": [],
+      "history_turn_limit": null,
+      "created_at": "2026-08-05T04:20:33.320928Z",
+      "updated_at": "2026-08-05T04:20:35.256201Z"
+    }
+  ],
+  "traces": [
+    {
+      "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+      "entries": [
+        {
+          "action_id": "a406da82-e0d2-4c6d-8b98-df1239a51335",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:33.333720",
+          "stage": "CASE_INTRO",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "start_encounter"
+          },
+          "tool_name": "start_encounter",
+          "tool_parameters": {},
+          "result_summary": {
+            "status": "success",
+            "case_id": "chest_pain_001",
+            "retry_of_session_id": null,
+            "focused_retry": false,
+            "focus_skills": []
+          },
+          "evidence_unlocked": [],
+          "time_cost": 0,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "4b502e70-529b-4568-88bd-b1ee83e1dcea",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:33.428705",
+          "stage": "CASE_INTRO",
+          "natural_language_input": "Have you used cocaine, recreational drugs, or stimulants recently?",
+          "structured_action": {
+            "type": "history_question"
+          },
+          "tool_name": "ask_history_question",
+          "tool_parameters": {},
+          "result_summary": {
+            "status": "success",
+            "patient_response": "I did use cocaine recently. I was embarrassed to mention it unless you asked directly."
+          },
+          "evidence_unlocked": [
+            {
+              "evidence_id": "history:hidden:0:recent cocaine use",
+              "category": "history",
+              "label": "History disclosure",
+              "value": "recent cocaine use",
+              "unlocked_at": "2026-08-05T04:20:33.406759Z",
+              "source_action": "ask_history_question"
+            }
+          ],
+          "time_cost": 1,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "98473f0b-4955-4cc2-a16b-074114a0cbe3",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:33.908716",
+          "stage": "HISTORY_TAKING",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "request_vital_signs",
+          "tool_parameters": {},
+          "result_summary": {
+            "tool_name": "request_vital_signs",
+            "status": "success",
+            "evidence_unlocked": [
+              {
+                "evidence_id": "vital_signs",
+                "category": "vital_signs",
+                "label": "Vital signs",
+                "value": {
+                  "blood_pressure": "168/96 mmHg",
+                  "heart_rate": "104 bpm, regular",
+                  "respiratory_rate": "22 breaths/min",
+                  "oxygen_saturation": "96% on room air",
+                  "temperature": "36.8 C",
+                  "appearance": "anxious and diaphoretic"
+                },
+                "unlocked_at": "2026-08-05T04:20:33.889047Z",
+                "source_action": "request_vital_signs"
+              }
+            ],
+            "result": {
+              "blood_pressure": "168/96 mmHg",
+              "heart_rate": "104 bpm, regular",
+              "respiratory_rate": "22 breaths/min",
+              "oxygen_saturation": "96% on room air",
+              "temperature": "36.8 C",
+              "appearance": "anxious and diaphoretic"
+            },
+            "time_cost": 2,
+            "safety_events": [],
+            "learner_message": "Vital signs completed and added to the evidence panel.",
+            "current_stage": "EXAMINATION"
+          },
+          "evidence_unlocked": [
+            {
+              "evidence_id": "vital_signs",
+              "category": "vital_signs",
+              "label": "Vital signs",
+              "value": {
+                "blood_pressure": "168/96 mmHg",
+                "heart_rate": "104 bpm, regular",
+                "respiratory_rate": "22 breaths/min",
+                "oxygen_saturation": "96% on room air",
+                "temperature": "36.8 C",
+                "appearance": "anxious and diaphoretic"
+              },
+              "unlocked_at": "2026-08-05T04:20:33.889047Z",
+              "source_action": "request_vital_signs"
+            }
+          ],
+          "time_cost": 2,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "423eedfb-9035-4ef1-8a9c-c2c07169cf91",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:34.350057",
+          "stage": "EXAMINATION",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "order_ecg",
+          "tool_parameters": {},
+          "result_summary": {
+            "tool_name": "order_ecg",
+            "status": "success",
+            "evidence_unlocked": [
+              {
+                "evidence_id": "investigation:ecg",
+                "category": "investigation",
+                "label": "ECG",
+                "value": {
+                  "rhythm": "Sinus tachycardia at 104 bpm",
+                  "st_t_changes": "1 mm horizontal ST depression in V4-V6",
+                  "st_elevation": "No ST elevation",
+                  "impression": "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
+                },
+                "unlocked_at": "2026-08-05T04:20:34.332849Z",
+                "source_action": "order_ecg"
+              }
+            ],
+            "result": {
+              "rhythm": "Sinus tachycardia at 104 bpm",
+              "st_t_changes": "1 mm horizontal ST depression in V4-V6",
+              "st_elevation": "No ST elevation",
+              "impression": "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
+            },
+            "time_cost": 5,
+            "safety_events": [],
+            "learner_message": "ECG completed and added to the evidence panel.",
+            "current_stage": "INVESTIGATION"
+          },
+          "evidence_unlocked": [
+            {
+              "evidence_id": "investigation:ecg",
+              "category": "investigation",
+              "label": "ECG",
+              "value": {
+                "rhythm": "Sinus tachycardia at 104 bpm",
+                "st_t_changes": "1 mm horizontal ST depression in V4-V6",
+                "st_elevation": "No ST elevation",
+                "impression": "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
+              },
+              "unlocked_at": "2026-08-05T04:20:34.332849Z",
+              "source_action": "order_ecg"
+            }
+          ],
+          "time_cost": 5,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "14fad94a-079f-4b46-ac84-7519ffe7629c",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:34.703422",
+          "stage": "INVESTIGATION",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "order_lab_test",
+          "tool_parameters": {
+            "test_name": "troponin"
+          },
+          "result_summary": {
+            "tool_name": "order_lab_test",
+            "status": "success",
+            "evidence_unlocked": [
+              {
+                "evidence_id": "investigation:troponin",
+                "category": "investigation",
+                "label": "Troponin",
+                "value": {
+                  "test": "High-sensitivity cardiac troponin I",
+                  "value": "78 ng/L",
+                  "reference_range": "less than 14 ng/L",
+                  "interpretation": "Elevated"
+                },
+                "unlocked_at": "2026-08-05T04:20:34.687985Z",
+                "source_action": "order_lab_test"
+              }
+            ],
+            "result": {
+              "test": "High-sensitivity cardiac troponin I",
+              "value": "78 ng/L",
+              "reference_range": "less than 14 ng/L",
+              "interpretation": "Elevated"
+            },
+            "time_cost": 10,
+            "safety_events": [],
+            "learner_message": "Troponin completed and added to the evidence panel.",
+            "current_stage": "INVESTIGATION"
+          },
+          "evidence_unlocked": [
+            {
+              "evidence_id": "investigation:troponin",
+              "category": "investigation",
+              "label": "Troponin",
+              "value": {
+                "test": "High-sensitivity cardiac troponin I",
+                "value": "78 ng/L",
+                "reference_range": "less than 14 ng/L",
+                "interpretation": "Elevated"
+              },
+              "unlocked_at": "2026-08-05T04:20:34.687985Z",
+              "source_action": "order_lab_test"
+            }
+          ],
+          "time_cost": 10,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "ea42b14a-501a-454c-adaa-01a16cc4b437",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:34.742103",
+          "stage": "INVESTIGATION",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "submit_differential_diagnosis",
+          "tool_parameters": {
+            "diagnoses": [
+              "acute coronary syndrome",
+              "aortic dissection",
+              "pulmonary embolism"
+            ]
+          },
+          "result_summary": {
+            "tool_name": "submit_differential_diagnosis",
+            "status": "success",
+            "evidence_unlocked": [],
+            "result": {
+              "diagnoses": [
+                "acute coronary syndrome",
+                "aortic dissection",
+                "pulmonary embolism"
+              ]
+            },
+            "time_cost": 2,
+            "safety_events": [],
+            "learner_message": "Differential diagnosis submitted. You may revise it before finishing.",
+            "current_stage": "CLINICAL_REASONING"
+          },
+          "evidence_unlocked": [],
+          "time_cost": 2,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "ba1b8378-65b1-4805-9d9a-500638cc7a47",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:34.770367",
+          "stage": "CLINICAL_REASONING",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "submit_management_plan",
+          "tool_parameters": {
+            "plan": {
+              "disposition": "urgent hospital admission for monitored cardiology care",
+              "initial_management": "emergency monitoring and reassessment",
+              "safety_net": "escalate immediately if pain worsens or the patient deteriorates"
+            }
+          },
+          "result_summary": {
+            "tool_name": "submit_management_plan",
+            "status": "success",
+            "evidence_unlocked": [],
+            "result": {
+              "plan": {
+                "disposition": "urgent hospital admission for monitored cardiology care",
+                "initial_management": "emergency monitoring and reassessment",
+                "safety_net": "escalate immediately if pain worsens or the patient deteriorates"
+              }
+            },
+            "time_cost": 3,
+            "safety_events": [],
+            "learner_message": "Management plan submitted. Review safety before finishing.",
+            "current_stage": "MANAGEMENT"
+          },
+          "evidence_unlocked": [],
+          "time_cost": 3,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {}
+        },
+        {
+          "action_id": "94bcc638-b454-4708-a8f7-0818a19b1001",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:35.186707",
+          "stage": "MANAGEMENT",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "tool_call",
+            "status": "success"
+          },
+          "tool_name": "finish_encounter",
+          "tool_parameters": {},
+          "result_summary": {
+            "tool_name": "finish_encounter",
+            "status": "success",
+            "evidence_unlocked": [],
+            "result": {
+              "assessment_status": "ready",
+              "safety_review": {
+                "risk_level": "high",
+                "decision": "allow_completion",
+                "triggered_rules": [
+                  "pain_radiation_not_assessed",
+                  "cardiovascular_risk_factors_not_assessed"
+                ],
+                "missing_critical_actions": [
+                  "Clarify whether the pain travels to another location.",
+                  "Review relevant cardiovascular risk factors."
+                ],
+                "learner_feedback": "Safety review passed. Remaining gaps will be included in formative feedback.",
+                "recommended_reflection_questions": []
+              }
+            },
+            "time_cost": 1,
+            "safety_events": [
+              "pain_radiation_not_assessed",
+              "cardiovascular_risk_factors_not_assessed"
+            ],
+            "learner_message": "Encounter locked for formative assessment.",
+            "current_stage": "ASSESSMENT"
+          },
+          "evidence_unlocked": [],
+          "time_cost": 1,
+          "hint_level": null,
+          "safety_event": [
+            "pain_radiation_not_assessed",
+            "cardiovascular_risk_factors_not_assessed"
+          ],
+          "score_event": {}
+        },
+        {
+          "action_id": "f2bfb9f6-4f16-474b-a0b2-c26665e5c4ee",
+          "session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19",
+          "timestamp": "2026-08-05T04:20:35.271142",
+          "stage": "ASSESSMENT",
+          "natural_language_input": null,
+          "structured_action": {
+            "type": "complete_assessment"
+          },
+          "tool_name": "complete_assessment",
+          "tool_parameters": {},
+          "result_summary": {
+            "status": "success",
+            "score": 80
+          },
+          "evidence_unlocked": [],
+          "time_cost": 0,
+          "hint_level": null,
+          "safety_event": [],
+          "score_event": {
+            "formative_score": 80,
+            "dimension_scores": {
+              "history_taking": 17,
+              "communication": 62,
+              "clinical_reasoning": 100,
+              "red_flag_recognition": 80,
+              "investigation_selection": 100,
+              "management_safety": 100,
+              "empathy": 58,
+              "closure_and_safety_netting": 100,
+              "efficiency": 100
+            },
+            "learning_profile_session_id": "dc31b1cd-0909-43bb-8663-8063006ecf19"
+          }
+        }
+      ]
+    }
+  ]
+}

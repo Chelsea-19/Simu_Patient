@@ -70,7 +70,7 @@ class BaseLLMProvider(ABC):
             except json.JSONDecodeError:
                 pass
 
-        logger.error("Failed to parse JSON from LLM output: %s", raw[:300])
+        logger.error("Failed to parse JSON from LLM output; raw content suppressed")
         from app.core.exceptions import LLMJsonParseError
 
         raise LLMJsonParseError(raw_output=raw)

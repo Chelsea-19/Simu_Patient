@@ -1,377 +1,217 @@
 # SimuPatient
 
-SimuPatient is a Streamlit-first clinical training demo for AI standardized patient conversations and OSCE-style feedback.
+SimuPatient is an adaptive clinical reasoning and OSCE training agent for
+medical education.
 
-The active application is a single Streamlit process. It imports the shared service, model, schema, repository, database, and provider layers directly from `app/`.
+It combines structured standardized-patient cases, controlled hidden-information
+disclosure, clinical skill tools, safety supervision, formative assessment, and
+focused retraining in a reproducible Streamlit application.
 
-## Current Architecture
+SimuPatient 面向医学生、OSCE 学习者与医学教育者，用于可重复的临床推理训练、
+形成性反馈和针对性复训。
 
-- `streamlit_app.py` is the only active app entry point.
-- `app/streamlit_services.py` adapts Streamlit UI events to the service layer.
-- `app/services/` contains patient generation, consultation, disclosure, and assessment logic.
-- `app/models/`, `app/schemas/`, and `app/repositories/` define the data contracts and persistence layer.
-- `app/providers/` contains LLM provider implementations. The factory selects `mock`, `gemini`, or `ollama` from `LLM_PROVIDER`.
-- `case_templates/` contains YAML OSCE case templates for standardized simulations.
-- `app/services/case_loader.py` validates and loads YAML case templates.
-- `app/db/session.py` manages SQLModel and SQLite initialization.
-- `legacy/`, when present in a development checkout, stores archived FastAPI API server files, Docker deployment files, API tests, generated run artifacts, and old pytest configuration. It is not required for the Streamlit-first app.
+## Who It Is For
 
-Legacy FastAPI code is archived for reference only and is not imported by the Streamlit app by default.
+- Medical students practicing structured history-taking and clinical reasoning.
+- OSCE learners rehearsing evidence gathering, differential diagnosis, and safe
+  management decisions.
+- Medical educators reviewing formative learning traces in a controlled local
+  instructor environment.
+
+The project is an education simulator. It supports practice and formative
+feedback; it is not a diagnostic, treatment, or high-stakes examination system.
+
+## Learning Loop
+
+```text
+Learning Goal
+-> Standardized Patient Interview
+-> Clinical Skill Tools
+-> Differential Diagnosis
+-> Management Plan
+-> Safety Review
+-> Learning Diagnosis
+-> Focused Retry
+```
+
+The learner selects a goal and completes a structured encounter. The application
+records questions, tool calls, reasoning, and management actions; checks unsafe
+completion attempts; then produces a multidimensional learning diagnosis and a
+focused retry plan.
+
+## Core Features
+
+- Validated YAML standardized-patient cases.
+- Conditional disclosure of hidden case information.
+- Vital signs and physical-examination tools.
+- Deterministic ECG and laboratory investigations.
+- Differential-diagnosis and management-plan submission.
+- A Safety Supervisor that blocks authored high-risk completion patterns.
+- An Action Trace for learner-visible evidence and formative review.
+- Multidimensional learning diagnosis and formative feedback.
+- Focused Retry with first/second-attempt comparison.
+- A role-gated local teacher view.
+- A deterministic MockProvider for offline tests and demos.
 
 ## Quick Start
 
-Install dependencies:
+Clone the repository and create a virtual environment:
+
+```bash
+git clone https://github.com/Chelsea-19/Simu_Patient.git
+cd Simu_Patient
+python -m venv .venv
+```
+
+Activate it on Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Or on macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install and run:
 
 ```bash
 pip install -r requirements.txt
-```
-
-Run the app with the deterministic MockProvider:
-
-```bash
 streamlit run streamlit_app.py
 ```
 
-MockProvider is the default provider and requires no API key.
+MockProvider is the default and does not require an API key. To select it
+explicitly on Windows PowerShell:
 
-## Run with MockProvider
+```powershell
+$env:LLM_PROVIDER = "mock"
+streamlit run streamlit_app.py
+```
 
-MockProvider is the recommended path for local development, tests, and reproducible demos:
+On macOS/Linux:
 
 ```bash
 LLM_PROVIDER=mock streamlit run streamlit_app.py
 ```
 
-On Windows PowerShell:
+The app creates a local SQLite database when it starts. Local databases are
+ignored by Git.
 
-```powershell
-$env:LLM_PROVIDER = "mock"
-streamlit run streamlit_app.py
-```
+## Providers
 
-## Run with GeminiProvider
+The provider factory exposes three providers:
 
-GeminiProvider is optional and requires an API key:
+- `mock`: deterministic, offline, and the default for tests and public demos.
+- `gemini`: optional; requires `GEMINI_API_KEY` and the installed Gemini SDK.
+- `ollama`: optional local experimentation with a running Ollama server and SDK.
+
+Provider modules import optional SDKs only when selected. For Gemini, copy the
+example configuration and supply a real key only in your local environment or
+Streamlit secrets:
 
 ```bash
-LLM_PROVIDER=gemini GEMINI_API_KEY=your-google-api-key streamlit run streamlit_app.py
+LLM_PROVIDER=gemini GEMINI_API_KEY=your-key streamlit run streamlit_app.py
 ```
 
-On Streamlit Community Cloud or local Streamlit secrets, set:
+Never commit `.env`, `.streamlit/secrets.toml`, or credential values.
 
-```toml
-LLM_PROVIDER = "gemini"
-GEMINI_API_KEY = "your-google-api-key"
-GEMINI_MODEL = "gemini-2.5-flash-lite"
-```
+## Tests and Evaluation
 
-Do not commit real API keys or `.streamlit/secrets.toml`.
-
-## Run Tests and Benchmarks
-
-Run tests:
+Run the active test suite:
 
 ```bash
 pytest
 ```
 
-Run the hidden-information disclosure benchmark:
+Run the deterministic disclosure benchmark:
 
 ```bash
 LLM_PROVIDER=mock python experiments/run_disclosure_eval.py
 ```
 
-Run the OSCE assessment benchmark:
+Run the deterministic OSCE benchmark:
 
 ```bash
 LLM_PROVIDER=mock python experiments/run_osce_eval.py
 ```
 
-All tests and benchmarks are designed to run with MockProvider and should not require external LLM calls.
+Run the authored GOAI workflow scenarios:
+
+```bash
+LLM_PROVIDER=mock python evaluation/run_goai_evaluation.py
+```
+
+The runners write small CSV, JSON, and Markdown outputs under
+`experiments/results/`, `evaluation/`, and `evaluation/results/`. These are
+internal software regression results, not clinical or educational validation.
 
 ## Project Structure
 
-- `app/`: service, model, schema, repository, provider, and evaluation code.
-- `case_templates/`: structured YAML OSCE cases.
-- `experiments/`: deterministic benchmark runners, sample transcripts, and small benchmark outputs.
-- `tests/`: Streamlit/service/evaluation-focused pytest suite.
-- `docs/`: interview and presentation documentation.
-- `streamlit_app.py`: active Streamlit application entry point.
-- `TECHNICAL_REPORT.md`: technical report for presentation and review.
-
-## Safety Disclaimer
-
-SimuPatient is for medical education simulation and software research only. It is not intended for clinical diagnosis, treatment, medical advice, patient care, or high-stakes learner assessment. Benchmark results are deterministic internal software evaluation results, not clinical validation.
-
-## Local Setup
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Configure secrets for local Streamlit runs:
-
-```bash
-copy .streamlit\secrets.toml.example .streamlit\secrets.toml
-```
-
-Then edit `.streamlit/secrets.toml`:
-
-```toml
-LLM_PROVIDER = "mock"
-```
-
-Run the deterministic local app:
-
-```bash
-streamlit run streamlit_app.py
-```
-
-The default `mock` provider requires no API key and makes no external LLM calls. It is intended for local development, UI checks, and tests.
-
-To run against Gemini instead:
-
-```toml
-LLM_PROVIDER = "gemini"
-GEMINI_API_KEY = "your-google-api-key"
-GEMINI_MODEL = "gemini-2.5-flash-lite"
-```
-
-Then start the same Streamlit entry point:
-
-```bash
-streamlit run streamlit_app.py
-```
-
-The SQLite database is created automatically when the app starts. Local database files are ignored by Git.
-
-## Patient Modes
-
-SimuPatient supports two ways to start a consultation:
-
-- `Random patient`: Enter a short clinical seed and let the selected provider generate a patient profile.
-- `Case template`: Select a predefined YAML case from `case_templates/`. The patient is initialized from the standardized case data, and the first chat message uses the case `opening_statement`.
-
-The case-template path is useful for repeatable OSCE practice and local testing. The random path remains available for exploratory simulation.
-
-## Case Templates
-
-Case templates are YAML files in `case_templates/`. Each file must include this schema:
-
-```yaml
-case_id: chest_pain_001
-title: Acute chest pain with cardiac risk factors
-specialty: emergency_medicine
-difficulty: intermediate
-chief_complaint: Chest pain for 2 hours
-demographics:
-  age: 58
-  gender: male
-  occupation: taxi driver
-present_illness:
-  onset: sudden
-  duration: 2 hours
-  location: central chest
-  character: pressure-like
-  severity: 8/10
-  radiation: left arm
-  associated_symptoms:
-    - sweating
-  aggravating_factors:
-    - exertion
-  relieving_factors:
-    - rest partially helps
-past_medical_history:
-  - hypertension
-medication_history:
-  - amlodipine
-allergy_history:
-  - no known drug allergies
-family_history:
-  - father died of myocardial infarction at 62
-social_history:
-  smoking: current smoker, 20 pack-years
-  alcohol: occasional
-  drug_use: denies unless asked directly
-hidden_information:
-  - item: recent cocaine use
-    reveal_condition: only reveal if asked directly about recreational drug or stimulant use
-    clinical_relevance: increases concern for cocaine-associated coronary vasospasm
-red_flags:
-  - acute coronary syndrome
-expected_key_questions:
-  - onset
-  - radiation
-scoring_rubric:
-  history_taking: 40
-  communication: 20
-  clinical_reasoning: 20
-  empathy: 10
-  closure: 10
-patient_personality:
-  anxiety: high
-  cooperativeness: medium
-  health_literacy: low
-opening_statement: "Doctor, I have this heavy pressure in my chest and I'm really worried."
-```
-
-To add a new case:
-
-1. Create a new `.yaml` file in `case_templates/`.
-2. Use a unique `case_id`.
-3. Include every required field shown above.
-4. Run `pytest` to validate that the case loads successfully.
-
-## Streamlit Community Cloud
-
-1. Push this repository to GitHub.
-2. Create a Streamlit Community Cloud app from the repository.
-3. Set `streamlit_app.py` as the main file.
-4. Add provider secrets in Streamlit Cloud settings. For deterministic demo mode:
-
-```toml
-LLM_PROVIDER = "mock"
-```
-
-For Gemini-backed runs:
-
-```toml
-LLM_PROVIDER = "gemini"
-GEMINI_API_KEY = "your-google-api-key"
-GEMINI_MODEL = "gemini-2.5-flash-lite"
-```
-
-No Docker, FastAPI server, or external database service is required for the current Streamlit deployment.
-
-## Provider Configuration
-
-Provider selection is controlled by `LLM_PROVIDER`:
-
-- `mock`: deterministic provider, no API key, no external calls. This is the default local and test path.
-- `gemini`: Google Gemini provider. Requires `GEMINI_API_KEY` from the environment or Streamlit secrets.
-- `ollama`: retained for local experimentation when the optional Ollama SDK and server are available.
-
-Provider modules are importable without installing or initializing optional SDKs. A provider-specific SDK is only needed when that provider is selected and used for real calls.
-
-## Tests
-
-Run the active Streamlit/service-layer tests:
-
-```bash
-pytest
-```
-
-The tests force `LLM_PROVIDER=mock` where service behavior is exercised, validate all YAML case templates, use a temporary SQLite database, and do not require a real API key.
-
-## Disclosure Evaluation
-
-Run the deterministic hidden-information disclosure benchmark:
-
-```bash
-LLM_PROVIDER=mock python experiments/run_disclosure_eval.py
-```
-
-On Windows PowerShell:
-
-```powershell
-$env:LLM_PROVIDER = "mock"
-python experiments/run_disclosure_eval.py
-```
-
-The disclosure benchmark has two splits:
-
-- `policy_unit_test`: controlled allow/deny examples that verify the basic disclosure policy.
-- `behavioral_challenge_test`: more realistic question forms that probe indirect, ambiguous, leading, compound, and prompt-injection-style behavior.
-
-Policy-unit scenarios include simple vague, direct, unrelated, and empathy-only questions. Perfect policy-unit scores only mean these controlled examples passed; they do not imply real-world performance.
-
-Challenge scenarios include:
-
-- `vague_general_question`
-- `direct_relevant_question`
-- `unrelated_question`
-- `empathy_question`
-- `indirect_relevant_question`
-- `ambiguous_question`
-- `leading_question`
-- `compound_question`
-- `adversarial_prompt_injection_question`
-
-Reported metrics include:
-
-- `policy_unit_precision`
-- `policy_unit_recall`
-- `policy_unit_premature_disclosure_rate`
-- `challenge_precision`
-- `challenge_recall`
-- `challenge_premature_disclosure_rate`
-- `challenge_exact_item_match_rate`
-- `over_disclosure_rate`
-- `prompt_injection_resistance_rate`
-
-Results are saved to:
-
-- `experiments/results/disclosure_policy_unit_eval.json`
-- `experiments/results/disclosure_policy_unit_eval.csv`
-- `experiments/results/disclosure_challenge_eval.json`
-- `experiments/results/disclosure_challenge_eval.csv`
-- `experiments/results/disclosure_eval_summary.md`
-
-This benchmark is deterministic and does not make external LLM calls. It is an internal regression benchmark, not clinical validation. The challenge split is included to make disclosure behavior more transparent under realistic question styles, but it is still an authored rule-based benchmark rather than evidence of real-world standardized-patient safety.
-
-## OSCE Assessment Benchmark
-
-Run the deterministic OSCE assessment benchmark:
-
-```bash
-LLM_PROVIDER=mock python experiments/run_osce_eval.py
-```
-
-On Windows PowerShell:
-
-```powershell
-$env:LLM_PROVIDER = "mock"
-python experiments/run_osce_eval.py
-```
-
-Sample consultation transcripts live in `experiments/sample_transcripts/`. Each transcript is linked to an existing `case_id`, includes a `poor`, `borderline`, or `good` student level, and contains hand-authored reference rubric scores.
-
-The benchmark is split internally into two parts:
-
-- `rule_based_rubric_scorer`: deterministic scorer that detects expected-question coverage, missed items, clinician-addressed red flags, empathy language, closure/safety-netting language, and clinical reasoning markers.
-- `benchmark_metric_calculator`: aggregate metric calculator for score error, pass/fail agreement, red-flag detection, and missed-item detection.
-
-Each scored transcript includes predicted scores, reference scores, score errors, detected covered items, detected missed items, detected red flags, and an explainable feedback summary.
-
-Reported metrics:
-
-- `total_score_mae`: mean absolute error between predicted and reference total scores.
-- `dimension_score_mae`: mean absolute error by rubric dimension.
-- `score_correlation`: Pearson correlation between predicted and reference total scores when calculable.
-- `pass_fail_agreement`: agreement using a pass threshold of 70.
-- `false_pass_count` and `false_fail_count`: pass/fail calibration errors at the threshold of 70.
-- `red_flag_detection_accuracy`: agreement on whether clinician-addressed safety red flags were detected.
-- `missed_item_detection_accuracy`: semantic overlap between predicted and expected missed history items.
-
-Results are saved to:
-
-- `experiments/results/osce_eval.json`
-- `experiments/results/osce_eval.csv`
-- `experiments/results/osce_eval_summary.md`
-- `experiments/results/osce_eval_per_transcript.md`
-
-This is an internal deterministic benchmark for regression checking and reproducibility. It is not clinical validation and should not be interpreted as evidence of real-world OSCE assessment validity. Current results should be read as calibration diagnostics: a high score correlation may mean transcripts are ranked consistently, while total-score MAE, false pass/fail counts, and missed-item detection expose remaining rubric calibration limits.
-
-## Legacy Archive
-
-Development checkouts may include a `legacy/` folder with files from the previous architecture:
-
-- `legacy/fastapi/` contains the old FastAPI entry point and API routes.
-- `legacy/docker/` contains the old Dockerfile and compose file.
-- `legacy/tests/` contains API-oriented pytest tests from the FastAPI phase.
-- `legacy/generated/` contains generated files and prior local run outputs.
-- `legacy/config/` contains old pytest configuration.
-
-These files are retained for historical reference only. New work should target the Streamlit app and shared `app/` layers.
+- `app/`: models, schemas, repositories, providers, services, and evaluation
+  utilities used by the Streamlit application.
+- `case_templates/`: structured synthetic educational cases.
+- `tests/`: service, safety, state-isolation, provider, and evaluation tests.
+- `experiments/`: disclosure and OSCE benchmark runners and authored transcripts.
+- `evaluation/`: end-to-end workflow scenario runner and aggregate metrics.
+- `assets/demo_traces/`: reproducible authored scenario evidence.
+- `assets/screenshots/`: screenshots captured from the local Streamlit prototype.
+- `docs/`: authoring, deployment, safety, state-separation, and tool guides.
+- `submission/`: competition introduction, deck, prototype guide, and demo script.
+- `streamlit_app.py`: the public application entry point.
+
+## Submission Materials
+
+- Project introduction: `submission/project_intro_zh.md`
+- Presentation: `submission/SimuPatient_GOAI_Preliminary.pptx`
+- PDF deck: `submission/SimuPatient_GOAI_Preliminary.pdf`
+- Prototype guide: `submission/prototype_guide.md`
+- Demo script: `submission/demo_script_3min.md`
+
+## Learner and Instructor Boundaries
+
+The public learner workflow exposes only learner-visible case data. Full case
+facts and teacher records are behind the server-side `APP_ROLE=instructor` gate.
+The default public demo must remain in learner mode and must not offer instructor
+permissions or expose authored hidden state.
+
+Instructor mode is intended only for a controlled local or separately secured
+teacher instance. It is not an authentication system and must not be treated as
+one for a public deployment.
+
+## Safety and Intended Use
+
+- SimuPatient is for medical education simulation and software research.
+- It must not be used for diagnosis, treatment, medical advice, or patient care.
+- It does not replace medical teachers, standardized patients, or formal OSCE
+  examiners.
+- Internal tests and benchmarks are not clinical validation or proof of
+  educational effectiveness.
+- The default public demo does not provide instructor access.
+- Safety rules are authored software checks and require professional review
+  before any broader educational deployment.
+
+## Data Sources and Privacy
+
+- Cases are structured educational scenarios stored as YAML.
+- Individual people and encounter identifiers are synthetic.
+- Examination, ECG, and laboratory results come from the selected case template.
+- The repository does not include real patient records or local runtime databases.
+- Medical content and scoring rules still require review by qualified educators
+  and clinical professionals.
+
+## Documentation
+
+- Local and Streamlit deployment: `docs/deployment.md`
+- Case schema: `docs/case_schema.md`
+- Case authoring: `docs/case_authoring_guide.md`
+- Learner/instructor state separation: `docs/state_separation.md`
+- Safety supervisor: `docs/safety_supervisor.md`
+- Clinical tool interface: `docs/tool_interface.md`
+- Learning diagnosis: `docs/learning_diagnosis.md`
+- Teacher workflow: `docs/teacher_workflow.md`
+
+## License
+
+SimuPatient is released under the [MIT License](LICENSE).
