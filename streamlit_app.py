@@ -39,8 +39,8 @@ from app.streamlit_services import (
 
 st.set_page_config(
     page_title="SimuPatient - AI Standardized Patient",
-    page_icon="SP",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 settings = get_settings()
@@ -75,26 +75,14 @@ if "last_tool_result" not in st.session_state:
     st.session_state.last_tool_result = None
 if "progress_report" not in st.session_state:
     st.session_state.progress_report = None
+if "confirm_session_reset" not in st.session_state:
+    st.session_state.confirm_session_reset = False
 if settings.is_instructor and "case_validation_result" not in st.session_state:
     st.session_state.case_validation_result = None
 
-st.sidebar.title("System Status")
-st.sidebar.success("Application ready")
-st.sidebar.markdown(f"**Provider:** `{settings.selected_provider}`")
-st.sidebar.markdown(f"**Role:** `{settings.APP_ROLE}`")
-if settings.selected_provider == "gemini":
-    st.sidebar.markdown(f"**Current model:** `{settings.GEMINI_MODEL}`")
-elif settings.selected_provider == "ollama":
-    st.sidebar.markdown(f"**Current model:** `{settings.OLLAMA_MODEL}`")
-else:
-    st.sidebar.markdown("**Current model:** `mock:deterministic`")
-st.sidebar.markdown("---")
-st.sidebar.info(
-    "Data is saved automatically to the local SQLite database. On Streamlit Community Cloud, "
-    "this database will reset when the app sleeps."
-)
 
-if st.sidebar.button("Reset Current Session", use_container_width=True):
+def reset_current_session() -> None:
+    """Clear only the active learner session after explicit confirmation."""
     st.session_state.patient_id = None
     st.session_state.learner_case = None
     st.session_state.chat_history = []
@@ -103,13 +91,39 @@ if st.sidebar.button("Reset Current Session", use_container_width=True):
     st.session_state.encounter_state = None
     st.session_state.last_tool_result = None
     st.session_state.progress_report = None
+    st.session_state.confirm_session_reset = False
     if settings.is_instructor:
         st.session_state.case_validation_result = None
-    st.rerun()
 
-with st.sidebar.expander("Resume structured encounter"):
+
+def provider_model_label() -> str:
+    if settings.selected_provider == "gemini":
+        return settings.GEMINI_MODEL
+    if settings.selected_provider == "ollama":
+        return settings.OLLAMA_MODEL
+    return "mock:deterministic"
+
+
+st.sidebar.title("Session")
+st.sidebar.success("Ready for training")
+
+active_state = st.session_state.encounter_state
+if active_state:
+    st.sidebar.metric("Current stage", active_state["current_stage"].replace("_", " ").title())
+    st.sidebar.caption(f"Elapsed time: {active_state['elapsed_time']} min")
+elif st.session_state.patient_id:
+    st.sidebar.info("Patient ready. Continue in Clinical Encounter.")
+else:
+    st.sidebar.caption("Choose a case to begin a new training session.")
+
+with st.sidebar.expander("Resume a saved encounter"):
     resume_session_id = st.text_input("Session ID", key="resume_session_id")
-    if st.button("Resume Encounter", use_container_width=True):
+    st.caption("Paste the encounter session ID shown during training.")
+    if st.button(
+        "Resume encounter",
+        disabled=not resume_session_id.strip(),
+        use_container_width=True,
+    ):
         try:
             restored = get_encounter_state_logic(resume_session_id.strip())
             learner_case = get_learner_case_logic(restored["patient_id"])
@@ -142,16 +156,53 @@ with st.sidebar.expander("Resume structured encounter"):
         except Exception as e:
             st.error(f"Could not resume encounter: {e}")
 
+with st.sidebar.expander("System and data details"):
+    st.markdown(f"**Provider:** `{settings.selected_provider}`")
+    st.markdown(f"**Model:** `{provider_model_label()}`")
+    st.markdown(f"**Role:** `{settings.APP_ROLE}`")
+    st.caption(
+        "Session data is saved to local SQLite. On Streamlit Community Cloud, "
+        "it resets when the app sleeps."
+    )
+
+st.sidebar.divider()
+if st.sidebar.button("Reset session data", use_container_width=True):
+    st.session_state.confirm_session_reset = True
+
+if st.session_state.confirm_session_reset:
+    st.sidebar.warning("This clears the active patient, encounter, chat, and feedback from this view.")
+    reset_col, cancel_col = st.sidebar.columns(2)
+    if reset_col.button("Confirm reset", type="primary", use_container_width=True):
+        reset_current_session()
+        st.rerun()
+    if cancel_col.button("Cancel", use_container_width=True):
+        st.session_state.confirm_session_reset = False
+        st.rerun()
+
 st.title("SimuPatient")
-st.markdown(
+st.caption("CLINICAL REASONING | STRUCTURED EVIDENCE | FORMATIVE FEEDBACK")
+st.write(
     "Adaptive clinical reasoning and OSCE practice with structured evidence, safety supervision, "
     "and personalized formative feedback."
 )
-st.markdown("---")
 
-tab_names = ["Choose Training", "Clinical Encounter", "Formative Feedback"]
+with st.container(border=True):
+    st.caption("TRAINING WORKFLOW")
+    setup_col, encounter_col, feedback_col = st.columns(3)
+    setup_col.markdown("**1  Choose training**")
+    setup_col.caption("Ready" if not st.session_state.patient_id else "Case selected")
+    encounter_col.markdown("**2  Clinical encounter**")
+    encounter_col.caption(
+        active_state["current_stage"].replace("_", " ").title()
+        if active_state
+        else ("Ready to begin" if st.session_state.patient_id else "Waiting for a case")
+    )
+    feedback_col.markdown("**3  Formative feedback**")
+    feedback_col.caption("Available" if st.session_state.assessment else "Pending completion")
+
+tab_names = ["Setup", "Encounter", "Feedback"]
 if settings.is_instructor:
-    tab_names.append("Instructor Case View")
+    tab_names.append("Instructor")
 tabs = st.tabs(tab_names)
 tab1, tab2, tab3 = tabs[:3]
 instructor_tab = tabs[3] if settings.is_instructor else None
@@ -173,7 +224,10 @@ def render_key_value_result(result: dict) -> None:
             for child_key, child_value in value.items():
                 rows.append(
                     {
-                        "Finding": f"{key.replace('_', ' ').title()} — {child_key.replace('_', ' ').title()}",
+                        "Finding": (
+                            f"{key.replace('_', ' ').title()} / "
+                            f"{child_key.replace('_', ' ').title()}"
+                        ),
                         "Result": str(child_value),
                     }
                 )
@@ -216,23 +270,34 @@ def handle_tool_result(result: dict) -> None:
         st.warning(result["learner_message"])
 
 with tab1:
-    st.header("Generate Standardized Patient")
+    st.header("Choose a Training Case")
+    st.caption("Start with a structured case for the complete evidence, safety, and feedback workflow.")
+    if st.session_state.patient_id:
+        st.success("Patient ready. Open Encounter to begin or continue the consultation.")
+        with st.expander("Current learner-visible case summary"):
+            render_learner_case(st.session_state.learner_case)
+            if st.session_state.encounter_session_id:
+                st.caption(f"Encounter session: {st.session_state.encounter_session_id}")
+
     patient_mode = st.radio(
-        "Patient mode",
-        ["Random patient", "Case template"],
+        "Training mode",
+        ["Case template", "Random patient"],
         horizontal=True,
     )
 
     if patient_mode == "Random patient":
-        seed_text = st.text_area(
-            "Patient Description",
-            placeholder="e.g. A 45-year-old male with sudden chest pain for 2 hours...",
-            help="Input a brief clinical scenario to generate a full patient profile.",
-        )
+        st.info("Random patients support conversational practice only. Use a case template for clinical tools and trace-grounded feedback.")
+        with st.container(border=True):
+            st.subheader("Describe the patient")
+            seed_text = st.text_area(
+                "Clinical scenario",
+                placeholder="Example: A 45-year-old man with sudden chest pain for two hours.",
+                help="Enter a short, synthetic scenario. Do not include real patient information.",
+            )
 
-        if st.button("Generate Patient"):
+        if st.button("Generate random patient", type="primary", use_container_width=True):
             if not seed_text:
-                st.error("Please enter a description.")
+                st.error("Enter a clinical scenario before generating the patient.")
             else:
                 with st.spinner(f"Generating clinical profile using {settings.selected_provider}..."):
                     try:
@@ -250,8 +315,7 @@ with tab1:
                         st.session_state.encounter_state = None
                         st.session_state.last_tool_result = None
                         st.session_state.progress_report = None
-                        st.success(f"Patient generated. ID: {data['id']}")
-                        render_learner_case(data["case"])
+                        st.rerun()
                     except Exception as e:
                         st.error(f"Patient generation failed: {e}")
     else:
@@ -263,25 +327,45 @@ with tab1:
 
         case_options = {f"{case.title} ({case.case_id})": case.case_id for case in cases}
         selected_label = None
-        if case_options:
-            selected_label = st.selectbox("Case Template", list(case_options.keys()))
-        else:
-            st.info("No case templates are available.")
+        selected_case = None
+        learner_id = "demo_learner"
+        training_goal = "Focused history, evidence gathering, clinical reasoning, and safe management"
+        with st.container(border=True):
+            st.subheader("Case and learning objective")
+            if case_options:
+                selected_label = st.selectbox("Case template", list(case_options.keys()))
+                selected_case = next(
+                    case for case in cases if case.case_id == case_options[selected_label]
+                )
+                case_col, learner_col = st.columns(2)
+                with case_col:
+                    st.markdown("**Learner-visible case preview**")
+                    st.write(selected_case.chief_complaint)
+                    st.caption(
+                        f"{selected_case.specialty.replace('_', ' ').title()} | "
+                        f"{selected_case.demographics.age}-year-old "
+                        f"{selected_case.demographics.gender} | {selected_case.difficulty}"
+                    )
+                with learner_col:
+                    learner_id = st.text_input(
+                        "Learner ID",
+                        value="demo_learner",
+                        help="Used to group local formative progress records.",
+                    )
+                    training_goal = st.text_area(
+                        "Training goal",
+                        value=training_goal,
+                        height=100,
+                    )
+            else:
+                st.info("No case templates are available.")
 
-        if selected_label:
-            selected_case = next(case for case in cases if case.case_id == case_options[selected_label])
-            st.caption(
-                f"{selected_case.specialty.replace('_', ' ').title()} | "
-                f"{selected_case.demographics.age}-year-old {selected_case.demographics.gender}"
-            )
-            st.write(f"**Chief Complaint:** {selected_case.chief_complaint}")
-            learner_id = st.text_input("Learner ID", value="demo_learner")
-            training_goal = st.text_input(
-                "Training goal",
-                value="Focused history, evidence gathering, clinical reasoning, and safe management",
-            )
-
-        if st.button("Start Case Consultation", disabled=selected_label is None):
+        if st.button(
+            "Start structured encounter",
+            type="primary",
+            disabled=selected_case is None,
+            use_container_width=True,
+        ):
             with st.spinner("Initializing standardized case..."):
                 try:
                     data = create_patient_from_case_logic(case_options[selected_label])
@@ -302,24 +386,28 @@ with tab1:
                     st.session_state.encounter_state = encounter
                     st.session_state.last_tool_result = None
                     st.session_state.progress_report = None
-                    st.success(f"Case initialized. Patient ID: {data['id']}")
-                    st.caption(f"Encounter session: {encounter['session_id']}")
-                    render_learner_case(data["case"])
+                    st.rerun()
                 except Exception as e:
                     st.error(f"Case initialization failed: {e}")
 
 with tab2:
     if not st.session_state.patient_id:
-        st.warning("Please create a patient first in the first tab.")
+        st.header("Clinical Encounter")
+        st.info("Choose a training case in Setup to unlock the encounter workspace.")
     else:
         state = refresh_encounter_state()
-        st.header("Clinical Investigation Workbench")
+        st.header("Clinical Encounter")
+        st.caption("Interview the patient, gather evidence, document your reasoning, and make a safe plan.")
 
         if state:
-            stage_col, time_col, session_col = st.columns([1, 1, 3])
-            stage_col.metric("Current stage", state["current_stage"])
-            time_col.metric("Elapsed time", f"{state['elapsed_time']} min")
-            session_col.caption(f"Session ID: `{state['session_id']}`")
+            with st.container(border=True):
+                stage_col, time_col = st.columns(2)
+                stage_col.metric(
+                    "Current stage",
+                    state["current_stage"].replace("_", " ").title(),
+                )
+                time_col.metric("Elapsed time", f"{state['elapsed_time']} min")
+                st.caption(f"Session ID: `{state['session_id']}`")
             if state.get("assessment_status") == "blocked_by_safety":
                 st.error(
                     "Safety review blocked completion. Reassess the unresolved risk, essential "
@@ -337,7 +425,7 @@ with tab2:
         else:
             st.info("Random-patient mode supports chat only. Use a YAML case for structured clinical tools.")
 
-        with st.expander("Learner-visible Case Summary"):
+        with st.expander("Learner-visible case summary"):
             render_learner_case(st.session_state.learner_case)
             evidence = state["evidence_unlocked"] if state else []
             if evidence:
@@ -354,8 +442,10 @@ with tab2:
                 data=safe_export,
                 file_name=f"learner_case_{st.session_state.patient_id}.json",
                 mime="application/json",
+                use_container_width=True,
             )
 
+        st.subheader("Patient interview")
         chat_container = st.container(height=400)
         for msg in st.session_state.chat_history:
             with chat_container.chat_message(msg["role"]):
@@ -368,9 +458,9 @@ with tab2:
             and len(state["questions_asked"]) >= state["history_turn_limit"]
         )
         if history_limit_reached:
-            st.info("Focused history turn limit reached. Continue with examination and investigations.")
+            st.info("Focused history limit reached. Continue with examination and investigations.")
         if prompt := st.chat_input(
-            "Ask the patient something...",
+            "Ask one focused question at a time",
             disabled=history_limit_reached,
         ):
             st.session_state.chat_history.append({"role": "user", "content": prompt})
@@ -394,40 +484,59 @@ with tab2:
                     st.error(f"Chat failed: {e}")
 
         if state:
-            st.markdown("---")
-            st.subheader("Clinical Skills")
+            st.divider()
+            st.subheader("Clinical actions")
+            st.caption("Available actions update as the encounter advances. Disabled controls are not yet available.")
             tools = get_available_tools_logic(state["session_id"])
-            tool_col1, tool_col2, tool_col3, tool_col4 = st.columns(4)
+            observe_col, investigate_col = st.columns(2)
 
-            with tool_col1:
-                if st.button(
-                    "Request Vital Signs",
-                    disabled=not tools["vital_signs"],
-                    use_container_width=True,
-                ):
-                    handle_tool_result(request_vital_signs_logic(state["session_id"]))
+            with observe_col:
+                with st.container(border=True):
+                    st.markdown("**Observe and examine**")
+                    if st.button(
+                        "Request vital signs",
+                        disabled=not tools["vital_signs"],
+                        use_container_width=True,
+                    ):
+                        handle_tool_result(request_vital_signs_logic(state["session_id"]))
 
-            with tool_col2:
-                if st.button("Order ECG", disabled=not tools["ecg"], use_container_width=True):
-                    handle_tool_result(order_ecg_logic(state["session_id"]))
-
-            with tool_col3:
-                exam_options = tools["physical_examinations"]
-                selected_exam = st.selectbox(
-                    "Physical exam system",
-                    exam_options,
-                    disabled=not exam_options,
-                )
-                if st.button("Perform Exam", disabled=not exam_options, use_container_width=True):
-                    handle_tool_result(
-                        perform_physical_exam_logic(state["session_id"], selected_exam)
+                    exam_options = tools["physical_examinations"]
+                    selected_exam = st.selectbox(
+                        "Physical examination",
+                        exam_options,
+                        disabled=not exam_options,
                     )
+                    if st.button(
+                        "Perform selected examination",
+                        disabled=not exam_options,
+                        use_container_width=True,
+                    ):
+                        handle_tool_result(
+                            perform_physical_exam_logic(state["session_id"], selected_exam)
+                        )
 
-            with tool_col4:
-                lab_options = tools["lab_tests"]
-                selected_lab = st.selectbox("Lab test", lab_options, disabled=not lab_options)
-                if st.button("Order Lab", disabled=not lab_options, use_container_width=True):
-                    handle_tool_result(order_lab_test_logic(state["session_id"], selected_lab))
+            with investigate_col:
+                with st.container(border=True):
+                    st.markdown("**Order investigations**")
+                    if st.button(
+                        "Order ECG",
+                        disabled=not tools["ecg"],
+                        use_container_width=True,
+                    ):
+                        handle_tool_result(order_ecg_logic(state["session_id"]))
+
+                    lab_options = tools["lab_tests"]
+                    selected_lab = st.selectbox(
+                        "Laboratory test",
+                        lab_options,
+                        disabled=not lab_options,
+                    )
+                    if st.button(
+                        "Order selected laboratory test",
+                        disabled=not lab_options,
+                        use_container_width=True,
+                    ):
+                        handle_tool_result(order_lab_test_logic(state["session_id"], selected_lab))
 
             if st.session_state.last_tool_result:
                 last_result = st.session_state.last_tool_result
@@ -452,49 +561,75 @@ with tab2:
                         for question in safety_review["recommended_reflection_questions"]:
                             st.markdown(f"- {question}")
 
-            with st.expander("Clinical reasoning and management", expanded=True):
-                differential_text = st.text_area(
-                    "Differential diagnoses (one per line or comma-separated)",
-                    key="differential_input",
-                )
-                if st.button("Submit Differential Diagnosis", use_container_width=True):
-                    diagnoses = [
-                        value.strip()
-                        for line in differential_text.splitlines()
-                        for value in line.split(",")
-                        if value.strip()
-                    ]
-                    handle_tool_result(
-                        submit_differential_diagnosis_logic(state["session_id"], diagnoses)
+            st.subheader("Clinical reasoning and plan")
+            reasoning_col, management_col = st.columns(2)
+            with reasoning_col:
+                with st.container(border=True):
+                    st.markdown("**Differential diagnosis**")
+                    differential_text = st.text_area(
+                        "Diagnoses",
+                        key="differential_input",
+                        placeholder="Enter one diagnosis per line, in priority order.",
+                        help="You may also separate diagnoses with commas.",
                     )
-
-                disposition = st.text_input("Disposition", key="management_disposition")
-                initial_management = st.text_area(
-                    "Initial management",
-                    key="management_initial",
-                )
-                safety_net = st.text_area("Safety-net advice", key="management_safety_net")
-                if st.button("Submit Management Plan", use_container_width=True):
-                    handle_tool_result(
-                        submit_management_plan_logic(
-                            state["session_id"],
-                            {
-                                "disposition": disposition,
-                                "initial_management": initial_management,
-                                "safety_net": safety_net,
-                            },
+                    if st.button("Submit differential", use_container_width=True):
+                        diagnoses = [
+                            value.strip()
+                            for line in differential_text.splitlines()
+                            for value in line.split(",")
+                            if value.strip()
+                        ]
+                        handle_tool_result(
+                            submit_differential_diagnosis_logic(state["session_id"], diagnoses)
                         )
+
+            with management_col:
+                with st.container(border=True):
+                    st.markdown("**Management plan**")
+                    disposition = st.text_input(
+                        "Disposition",
+                        key="management_disposition",
+                        placeholder="Example: monitored admission",
                     )
+                    initial_management = st.text_area(
+                        "Initial management",
+                        key="management_initial",
+                        placeholder="Immediate treatment and escalation steps",
+                    )
+                    safety_net = st.text_area(
+                        "Safety-net advice",
+                        key="management_safety_net",
+                        placeholder="Red flags, follow-up, and when to seek urgent care",
+                    )
+                    if st.button("Submit management plan", use_container_width=True):
+                        handle_tool_result(
+                            submit_management_plan_logic(
+                                state["session_id"],
+                                {
+                                    "disposition": disposition,
+                                    "initial_management": initial_management,
+                                    "safety_net": safety_net,
+                                },
+                            )
+                        )
 
             hint_col, finish_col = st.columns(2)
             with hint_col:
-                hint_level = st.select_slider("Hint level", options=[1, 2, 3], value=1)
-                if st.button("Request Hint", use_container_width=True):
-                    handle_tool_result(request_hint_logic(state["session_id"], hint_level))
+                with st.container(border=True):
+                    st.markdown("**Need support?**")
+                    hint_level = st.select_slider("Hint level", options=[1, 2, 3], value=1)
+                    if st.button("Request hint", use_container_width=True):
+                        handle_tool_result(request_hint_logic(state["session_id"], hint_level))
 
             with finish_col:
-                st.write("Finish only after submitting a differential and management plan.")
-                if st.button("Finish Encounter and Evaluate", use_container_width=True):
+                with st.container(border=True):
+                    st.markdown("**Ready for feedback?**")
+                    st.caption("Finish after submitting both your differential and management plan.")
+                if st.button(
+                    "Finish encounter and evaluate",
+                    type="primary",
+                    use_container_width=True,
+                ):
                     finished = finish_encounter_logic(state["session_id"])
                     handle_tool_result(finished)
                     if finished["status"] == "success":
@@ -512,12 +647,12 @@ with tab2:
                                         completed_state["retry_of_session_id"],
                                         completed_state["session_id"],
                                     )
-                                st.success("Evaluation complete. Go to Tab 3.")
+                                st.success("Evaluation complete. Open Formative Feedback.")
                             except Exception as e:
                                 st.error(f"Evaluation failed: {e}")
 
             trace = get_action_trace_logic(state["session_id"])
-            with st.expander("Action Trace", expanded=True):
+            with st.expander("Action trace", expanded=False):
                 trace_rows = [
                     {
                         "timestamp": entry["timestamp"],
@@ -536,7 +671,11 @@ with tab2:
                 ]
                 st.dataframe(trace_rows, use_container_width=True, hide_index=True)
 
-        elif st.button("Finish Consultation and Evaluate"):
+        elif st.button(
+            "Finish consultation and evaluate",
+            type="primary",
+            use_container_width=True,
+        ):
             with st.spinner("Analyzing consultation transcript..."):
                 try:
                     result = evaluate_consultation_logic(
@@ -544,38 +683,50 @@ with tab2:
                         history=st.session_state.chat_history,
                     )
                     st.session_state.assessment = result.model_dump()
-                    st.success("Evaluation complete. Go to Tab 3.")
+                    st.success("Evaluation complete. Open Formative Feedback.")
                 except Exception as e:
                     st.error(f"Evaluation failed: {e}")
 
 with tab3:
     if not st.session_state.assessment:
-        st.warning("No assessment report yet. Finish the consultation in Tab 2.")
+        st.header("Formative Feedback")
+        st.info("Finish the clinical encounter to generate a trace-grounded learning report.")
     else:
         result = st.session_state.assessment
-        st.header("Final Assessment Report")
-
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Overall Score", f"{result.get('score', 0)}/100")
-        col2.metric("Latency", f"{result.get('latency_ms', 0):.0f}ms")
-        col3.metric("Model", result.get("model_used", "N/A"))
-
-        st.subheader("Clinical Feedback")
-        st.info(result.get("feedback", "No feedback provided."))
-
-        st.subheader("Dimensions Breakdown")
-
-        cols = st.columns(5)
-        cols[0].metric("History Taking", f"{result.get('history_taking_score', 0)}/100")
-        cols[1].metric("Communication", f"{result.get('communication_score', 0)}/100")
-        cols[2].metric("Reasoning", f"{result.get('clinical_reasoning_score', 0)}/100")
-        cols[3].metric("Empathy", f"{result.get('empathy_score', 0)}/100")
-        cols[4].metric("Closure", f"{result.get('closure_score', 0)}/100")
-
         learning_profile = result.get("learning_profile")
         remediation_plan = result.get("remediation_plan")
+        st.header("Formative Feedback")
+        st.caption("Use this report to identify the next specific skill to practice. It is not a clinical credential.")
+
+        score_col, feedback_col = st.columns([1, 2])
+        with score_col:
+            with st.container(border=True):
+                st.metric("Overall formative score", f"{result.get('score', 0)}/100")
+        with feedback_col:
+            st.info(result.get("feedback", "No feedback provided."))
+
+        with st.expander("Assessment details"):
+            detail_col1, detail_col2 = st.columns(2)
+            detail_col1.write(f"**Model:** {result.get('model_used', 'N/A')}")
+            detail_col2.write(f"**Latency:** {result.get('latency_ms', 0):.0f} ms")
+
+        st.subheader("Performance by dimension")
+        dimension_metrics = [
+            ("History taking", result.get("history_taking_score", 0)),
+            ("Communication", result.get("communication_score", 0)),
+            ("Clinical reasoning", result.get("clinical_reasoning_score", 0)),
+            ("Empathy", result.get("empathy_score", 0)),
+            ("Closure", result.get("closure_score", 0)),
+        ]
+        first_metric_row = st.columns(3)
+        second_metric_row = st.columns(2)
+        for metric_col, (label, score) in zip(first_metric_row, dimension_metrics[:3]):
+            metric_col.metric(label, f"{score}/100")
+        for metric_col, (label, score) in zip(second_metric_row, dimension_metrics[3:]):
+            metric_col.metric(label, f"{score}/100")
+
         if learning_profile:
-            st.subheader("Trace-grounded Learning Profile")
+            st.subheader("Trace-grounded learning profile")
             dimension_rows = [
                 {
                     "dimension": name.replace("_", " ").title(),
@@ -591,7 +742,7 @@ with tab3:
 
             with st.expander("Scoring evidence and targeted practice", expanded=False):
                 for name, detail in learning_profile["dimensions"].items():
-                    st.markdown(f"**{name.replace('_', ' ').title()} — {detail['score']}/100**")
+                    st.markdown(f"**{name.replace('_', ' ').title()} - {detail['score']}/100**")
                     render_feedback_items(
                         "Evidence", detail["scoring_evidence"], "No scoring evidence recorded."
                     )
@@ -609,21 +760,26 @@ with tab3:
                     )
 
         if remediation_plan:
-            st.subheader("Personalized Remediation Plan")
-            st.write(f"**Learning objective:** {remediation_plan['learning_objective']}")
-            st.write(
-                "**Priority skills:** "
-                + ", ".join(skill.replace("_", " ") for skill in remediation_plan["priority_skills"])
-            )
-            render_feedback_items(
-                "Actions to practice",
-                remediation_plan["specific_actions_to_practice"],
-                "No focused action generated.",
-            )
-            st.write(f"**Hint policy:** {remediation_plan['hint_policy']}")
-            render_feedback_items(
-                "Success criteria", remediation_plan["success_criteria"], "No criteria generated."
-            )
+            st.subheader("Personalized remediation plan")
+            with st.container(border=True):
+                st.write(f"**Learning objective:** {remediation_plan['learning_objective']}")
+                st.write(
+                    "**Priority skills:** "
+                    + ", ".join(
+                        skill.replace("_", " ") for skill in remediation_plan["priority_skills"]
+                    )
+                )
+                render_feedback_items(
+                    "Actions to practice",
+                    remediation_plan["specific_actions_to_practice"],
+                    "No focused action generated.",
+                )
+                st.write(f"**Hint policy:** {remediation_plan['hint_policy']}")
+                render_feedback_items(
+                    "Success criteria",
+                    remediation_plan["success_criteria"],
+                    "No criteria generated.",
+                )
 
             current_state = st.session_state.encounter_state
             can_start_retry = bool(
@@ -632,7 +788,8 @@ with tab3:
                 and not current_state.get("retry_of_session_id")
             )
             if st.button(
-                "Start Focused Retry",
+                "Start focused retry",
+                type="primary",
                 disabled=not can_start_retry,
                 use_container_width=True,
             ):
@@ -656,7 +813,7 @@ with tab3:
 
         if st.session_state.progress_report:
             progress = st.session_state.progress_report
-            st.subheader("Focused Retry Progress")
+            st.subheader("Focused retry progress")
             score_col1, score_col2 = st.columns(2)
             score_col1.metric("First round", progress["first_total_score"])
             score_col2.metric(
@@ -682,8 +839,9 @@ with tab3:
                 + (", ".join(safety_change["second_round"]) or "None")
             )
             st.write(
-                f"**Hints:** {progress['first_hints_used']} → {progress['second_hints_used']} | "
-                f"**Time:** {progress['first_completion_time']} → {progress['second_completion_time']} min"
+                f"**Hints:** {progress['first_hints_used']} -> {progress['second_hints_used']} | "
+                f"**Time:** {progress['first_completion_time']} -> "
+                f"{progress['second_completion_time']} min"
             )
             st.markdown(
                 "**Still needs improvement:** "
@@ -707,8 +865,9 @@ with tab3:
 
 if instructor_tab is not None:
     with instructor_tab:
-        st.header("Teacher Dashboard")
+        st.header("Instructor Workspace")
         st.warning("This view contains hidden case facts and must not be shown to learners.")
+        st.subheader("Learner progress")
 
         try:
             all_dashboard = get_teacher_dashboard_logic()
@@ -793,7 +952,7 @@ if instructor_tab is not None:
                     progress = selected_record["progress_report"]
                     st.subheader("First vs Second Attempt")
                     st.write(
-                        f"**Total:** {progress['first_total_score']} → "
+                        f"**Total:** {progress['first_total_score']} -> "
                         f"{progress['second_total_score']}"
                     )
                     st.dataframe(
@@ -830,8 +989,8 @@ if instructor_tab is not None:
         except Exception as e:
             st.error(f"Teacher dashboard failed: {e}")
 
-        st.markdown("---")
-        st.header("YAML Case Template Validator")
+        st.divider()
+        st.subheader("YAML case template validator")
         try:
             validation_templates = list_case_templates_for_validation_logic()
             template_labels = {
@@ -860,7 +1019,7 @@ if instructor_tab is not None:
                     for issue in category_issues
                 ]
                 st.dataframe(issues, use_container_width=True, hide_index=True)
-                st.subheader("Learner-visible Preview")
+                st.subheader("Learner-visible preview")
                 st.dataframe([validation["learner_preview"]], use_container_width=True, hide_index=True)
                 validation_col1, validation_col2 = st.columns(2)
                 validation_col1.download_button(
@@ -880,22 +1039,22 @@ if instructor_tab is not None:
         except Exception as e:
             st.error(f"Case template validation failed: {e}")
 
-        st.markdown("---")
-        st.header("Instructor-only Current Case Review")
+        st.divider()
+        st.subheader("Instructor-only current case review")
         if not st.session_state.patient_id:
             st.info("Initialize a case to review its instructor-only state.")
         else:
             try:
                 instructor_view = get_instructor_case_view_logic(st.session_state.patient_id)
-                st.subheader("Full Case Blueprint")
-                st.json(instructor_view.full_case.model_dump(mode="json"))
-                st.subheader("Rubric")
-                st.json(instructor_view.rubric)
-                st.subheader("Learner Action Trace")
-                st.json(instructor_view.learner_action_trace)
-                st.subheader("Unlock History")
-                st.json(instructor_view.unlock_history)
-                st.subheader("Scoring Evidence")
-                st.json(instructor_view.scoring_evidence)
+                with st.expander("Full case blueprint"):
+                    st.json(instructor_view.full_case.model_dump(mode="json"))
+                with st.expander("Rubric"):
+                    st.json(instructor_view.rubric)
+                with st.expander("Learner action trace"):
+                    st.json(instructor_view.learner_action_trace)
+                with st.expander("Unlock history"):
+                    st.json(instructor_view.unlock_history)
+                with st.expander("Scoring evidence"):
+                    st.json(instructor_view.scoring_evidence)
             except Exception as e:
                 st.error(f"Instructor view failed: {e}")
