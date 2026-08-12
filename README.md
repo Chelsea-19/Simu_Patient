@@ -53,6 +53,16 @@ focused retry plan.
 - A role-gated local teacher view.
 - A deterministic MockProvider for offline tests and demos.
 
+## Why This Is an Agent, Not a Chatbot
+
+SimuPatient is a stateful training system rather than an open-ended clinical chat.
+For each encounter, it keeps a structured case state, gates hidden facts behind
+authored disclosure conditions, routes typed clinical actions, persists an Action
+Trace, applies deterministic safety checks before completion, and uses the trace
+to produce formative feedback and a focused retry. The optional LLM providers
+generate patient dialogue within those boundaries; the workflow and safety rules
+do not depend on an LLM being available.
+
 ## Quick Start
 
 Clone the repository and create a virtual environment:
@@ -211,6 +221,7 @@ one for a public deployment.
 - Clinical tool interface: `docs/tool_interface.md`
 - Learning diagnosis: `docs/learning_diagnosis.md`
 - Teacher workflow: `docs/teacher_workflow.md`
+- Technical design and benchmark interpretation: `docs/technical_report.md`
 
 ## License
 
