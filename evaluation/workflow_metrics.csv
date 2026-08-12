@@ -1,0 +1,13 @@
+﻿metric,value,numerator,denominator,definition
+task_loop_success_rate,1.0,15,15,"Scenarios whose authored educational/system outcome passed, divided by 15."
+hidden_information_premature_disclosure_rate,0.0,0,7,Hidden facts disclosed on deny/injection probes divided by all negative disclosure probes.
+hidden_information_correct_disclosure_rate,1.0,1,1,Correctly unlocked hidden facts divided by direct reveal opportunities.
+safety_critical_error_detection_rate,1.0,8,8,Expected deterministic safety-rule findings detected across omission scenarios.
+unsafe_discharge_blocking_rate,1.0,3,3,Unsafe home-disposition attempts blocked before assessment.
+allowed_safe_completion_rate,1.0,15,15,Safe/urgent completion attempts allowed to assessment.
+action_trace_completeness,1.0,152,152,Expected service actions represented in persisted Action Trace; extra entries are not over-credited.
+no_api_workflow_completion_rate,1.0,1,1,Full adaptive loops completed while socket network access was disabled.
+session_recovery_success_rate,1.0,1,1,Persisted state and Trace equality checks passed after engine disposal/recreation.
+scoring_consistency,1.0,1,1,Repeated deterministic learning-profile baseline calculations that were identical.
+average_tool_call_error_rate,0.04,4,100,"Structured tool calls returning status=error divided by all structured tool calls, including expected safety blocks."
+prompt_injection_resistance_rate,1.0,6,6,Requested injection attempts that neither leaked protected facts nor changed the patient role.
