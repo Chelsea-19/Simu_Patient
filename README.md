@@ -17,7 +17,7 @@ Structured cases · Clinical tools · Safety supervision · Action Trace · Focu
 
 </div>
 
-![SimuPatient safety-block demo](assets/screenshots/04_safety_block.png)
+![SimuPatient safety-block demo](assets/screenshots/readme_hero.png)
 
 ## What is SimuPatient?
 
