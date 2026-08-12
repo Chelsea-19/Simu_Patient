@@ -5,7 +5,7 @@
     "passed": true,
     "completed": true,
     "session_ids": [
-      "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb"
+      "e6f45a93-48a9-4518-bd6d-e5b2044d3d63"
     ],
     "trace_expected_actions": 9,
     "trace_actual_actions": 9,
@@ -33,11 +33,11 @@
   "notes": [],
   "final_states": [
     {
-      "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
+      "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
       "learner_id": "eval-05_premature_disclosure",
       "patient_id": 5,
       "case_id": "chest_pain_001",
-      "training_goal": "GOAI evaluation scenario 05_premature_disclosure",
+      "training_goal": "Workflow evaluation scenario 05_premature_disclosure",
       "difficulty": "intermediate",
       "current_stage": "COMPLETED",
       "elapsed_time": 24,
@@ -68,7 +68,7 @@
             "temperature": "36.8 C",
             "appearance": "anxious and diaphoretic"
           },
-          "unlocked_at": "2026-08-05T04:20:36.450907Z",
+          "unlocked_at": "2026-08-12T05:22:04.627737Z",
           "source_action": "request_vital_signs"
         },
         {
@@ -81,7 +81,7 @@
             "st_elevation": "No ST elevation",
             "impression": "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
           },
-          "unlocked_at": "2026-08-05T04:20:36.895340Z",
+          "unlocked_at": "2026-08-12T05:22:05.279971Z",
           "source_action": "order_ecg"
         },
         {
@@ -94,7 +94,7 @@
             "reference_range": "less than 14 ng/L",
             "interpretation": "Elevated"
           },
-          "unlocked_at": "2026-08-05T04:20:37.268261Z",
+          "unlocked_at": "2026-08-12T05:22:06.013842Z",
           "source_action": "order_lab_test"
         }
       ],
@@ -125,18 +125,18 @@
       "focused_retry": false,
       "focus_skills": [],
       "history_turn_limit": null,
-      "created_at": "2026-08-05T04:20:35.718276Z",
-      "updated_at": "2026-08-05T04:20:37.789105Z"
+      "created_at": "2026-08-12T05:22:03.713374Z",
+      "updated_at": "2026-08-12T05:22:07.048773Z"
     }
   ],
   "traces": [
     {
-      "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
+      "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
       "entries": [
         {
-          "action_id": "380288fc-18a7-4ddb-a652-cb7886cf571d",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:35.730714",
+          "action_id": "411fd28b-cd46-4657-8835-ab469d1789a7",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:03.739016",
           "stage": "CASE_INTRO",
           "natural_language_input": null,
           "structured_action": {
@@ -158,9 +158,9 @@
           "score_event": {}
         },
         {
-          "action_id": "91f0e2dc-b318-43a4-8cdf-f02002e4adc1",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:35.806762",
+          "action_id": "79859b8b-dca2-4470-9fa1-9d8c73ed52ef",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:03.953709",
           "stage": "CASE_INTRO",
           "natural_language_input": "How are you feeling today?",
           "structured_action": {
@@ -179,9 +179,9 @@
           "score_event": {}
         },
         {
-          "action_id": "81dd058a-cda2-4f12-b6b0-c74d691a821a",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:36.467188",
+          "action_id": "9e9add07-0d9f-4825-bb92-24be0ef2ac1f",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:04.662560",
           "stage": "HISTORY_TAKING",
           "natural_language_input": null,
           "structured_action": {
@@ -206,7 +206,7 @@
                   "temperature": "36.8 C",
                   "appearance": "anxious and diaphoretic"
                 },
-                "unlocked_at": "2026-08-05T04:20:36.450907Z",
+                "unlocked_at": "2026-08-12T05:22:04.627737Z",
                 "source_action": "request_vital_signs"
               }
             ],
@@ -236,7 +236,7 @@
                 "temperature": "36.8 C",
                 "appearance": "anxious and diaphoretic"
               },
-              "unlocked_at": "2026-08-05T04:20:36.450907Z",
+              "unlocked_at": "2026-08-12T05:22:04.627737Z",
               "source_action": "request_vital_signs"
             }
           ],
@@ -246,9 +246,9 @@
           "score_event": {}
         },
         {
-          "action_id": "b8372757-6552-4db5-8ab7-76c741613560",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:36.913082",
+          "action_id": "1cbdd562-754c-46ba-99cd-684a900fe3e6",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:05.335862",
           "stage": "EXAMINATION",
           "natural_language_input": null,
           "structured_action": {
@@ -271,7 +271,7 @@
                   "st_elevation": "No ST elevation",
                   "impression": "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
                 },
-                "unlocked_at": "2026-08-05T04:20:36.895340Z",
+                "unlocked_at": "2026-08-12T05:22:05.279971Z",
                 "source_action": "order_ecg"
               }
             ],
@@ -297,7 +297,7 @@
                 "st_elevation": "No ST elevation",
                 "impression": "Ischemic changes concerning for non-ST-elevation acute coronary syndrome"
               },
-              "unlocked_at": "2026-08-05T04:20:36.895340Z",
+              "unlocked_at": "2026-08-12T05:22:05.279971Z",
               "source_action": "order_ecg"
             }
           ],
@@ -307,9 +307,9 @@
           "score_event": {}
         },
         {
-          "action_id": "ef8a1c34-3b75-4865-8884-85c7c11f3a7a",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:37.283905",
+          "action_id": "e0fc473e-dfef-420d-ae16-a36cc56139e2",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:06.083882",
           "stage": "INVESTIGATION",
           "natural_language_input": null,
           "structured_action": {
@@ -334,7 +334,7 @@
                   "reference_range": "less than 14 ng/L",
                   "interpretation": "Elevated"
                 },
-                "unlocked_at": "2026-08-05T04:20:37.268261Z",
+                "unlocked_at": "2026-08-12T05:22:06.013842Z",
                 "source_action": "order_lab_test"
               }
             ],
@@ -360,7 +360,7 @@
                 "reference_range": "less than 14 ng/L",
                 "interpretation": "Elevated"
               },
-              "unlocked_at": "2026-08-05T04:20:37.268261Z",
+              "unlocked_at": "2026-08-12T05:22:06.013842Z",
               "source_action": "order_lab_test"
             }
           ],
@@ -370,9 +370,9 @@
           "score_event": {}
         },
         {
-          "action_id": "e8bf006a-45a7-46c5-9505-23cdefd30fb7",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:37.315594",
+          "action_id": "48cb35aa-f658-429f-b0e0-505949780209",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:06.132460",
           "stage": "INVESTIGATION",
           "natural_language_input": null,
           "structured_action": {
@@ -410,9 +410,9 @@
           "score_event": {}
         },
         {
-          "action_id": "f9b563d5-7d5a-4240-a3a5-d25d19d76bd9",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:37.348357",
+          "action_id": "f35e00c3-51ee-4d6b-86b8-4d1e5a02ae94",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:06.215953",
           "stage": "CLINICAL_REASONING",
           "natural_language_input": null,
           "structured_action": {
@@ -450,9 +450,9 @@
           "score_event": {}
         },
         {
-          "action_id": "95d5cf63-7892-490c-906b-70da19184c80",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:37.731873",
+          "action_id": "26254f7a-66f9-4b98-9804-f32315de9fd3",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:06.846630",
           "stage": "MANAGEMENT",
           "natural_language_input": null,
           "structured_action": {
@@ -504,9 +504,9 @@
           "score_event": {}
         },
         {
-          "action_id": "3033b843-8b5b-4167-9652-ef92492e00b3",
-          "session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb",
-          "timestamp": "2026-08-05T04:20:37.800400",
+          "action_id": "ed7e1df5-a16c-4f3f-bdbd-98791d7f9471",
+          "session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63",
+          "timestamp": "2026-08-12T05:22:07.156343",
           "stage": "ASSESSMENT",
           "natural_language_input": null,
           "structured_action": {
@@ -535,7 +535,7 @@
               "closure_and_safety_netting": 100,
               "efficiency": 100
             },
-            "learning_profile_session_id": "8f9470d8-dedb-4501-ad8c-689b3ba3a9cb"
+            "learning_profile_session_id": "e6f45a93-48a9-4518-bd6d-e5b2044d3d63"
           }
         }
       ]
