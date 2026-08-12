@@ -1,11 +1,6 @@
-# Phase 6 Prototype Evidence
+# Interface Screenshots
 
-These PNG files were captured from the running Streamlit prototype on 2026-08-05 at a
-1440 x 1000 browser viewport. The learner and instructor processes both used
-`LLM_PROVIDER=mock` and the same temporary SQLite evidence database. The database is
-not committed; the screenshots and scenario traces are the durable evidence.
-The screenshots were recaptured from the release branch after the public project title
-was normalized to `SimuPatient`.
+These screenshots show the learner and instructor interfaces with `LLM_PROVIDER=mock`.
 
 | File | Role | Evidence |
 |---|---|---|
@@ -17,5 +12,3 @@ was normalized to `SimuPatient`.
 | `06_personalized_retry.png` | learner | Personalized remediation plan and focused-retry action |
 | `07_two_round_comparison.png` | learner | First/second-round score and dimension comparison |
 | `08_teacher_dashboard.png` | instructor | Role-gated records, scores, safety events, and retry link |
-
-The images are Demo evidence, not proof of clinical validity or educational efficacy.
