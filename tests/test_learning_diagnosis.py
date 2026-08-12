@@ -192,10 +192,10 @@ def test_streamlit_resume_displays_learning_profile_and_retry_action(monkeypatch
     next(item for item in at.text_input if item.label == "Session ID").set_value(
         state["session_id"]
     )
-    next(button for button in at.button if button.label == "Resume Encounter").click().run()
+    next(button for button in at.button if button.label == "Resume encounter").click().run()
 
     assert not at.exception
-    assert "Trace-grounded Learning Profile" in {item.value for item in at.subheader}
-    assert "Personalized Remediation Plan" in {item.value for item in at.subheader}
-    assert "Start Focused Retry" in {button.label for button in at.button}
+    assert "Trace-grounded learning profile" in {item.value for item in at.subheader}
+    assert "Personalized remediation plan" in {item.value for item in at.subheader}
+    assert "Start focused retry" in {button.label for button in at.button}
     assert at.session_state["assessment"]["learning_profile"]["overall_score"] > 0

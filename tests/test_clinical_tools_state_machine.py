@@ -296,24 +296,24 @@ def test_streamlit_workbench_exposes_state_tools_evidence_and_trace(monkeypatch,
 
     at = AppTest.from_file("streamlit_app.py", default_timeout=25).run()
     at.radio[0].set_value("Case template").run()
-    next(button for button in at.button if button.label == "Start Case Consultation").click().run()
+    next(button for button in at.button if button.label == "Start structured encounter").click().run()
 
     assert not at.exception
     assert at.session_state["encounter_session_id"]
     assert at.session_state["encounter_state"]["current_stage"] == "CASE_INTRO"
     assert {(metric.label, metric.value) for metric in at.metric} >= {
-        ("Current stage", "CASE_INTRO"),
+        ("Current stage", "Case Intro"),
         ("Elapsed time", "0 min"),
     }
     expected_buttons = {
-        "Request Vital Signs",
+        "Request vital signs",
         "Order ECG",
-        "Perform Exam",
-        "Order Lab",
-        "Submit Differential Diagnosis",
-        "Submit Management Plan",
-        "Request Hint",
-        "Finish Encounter and Evaluate",
+        "Perform selected examination",
+        "Order selected laboratory test",
+        "Submit differential",
+        "Submit management plan",
+        "Request hint",
+        "Finish encounter and evaluate",
     }
     assert expected_buttons.issubset({button.label for button in at.button})
     assert len(at.dataframe) == 1

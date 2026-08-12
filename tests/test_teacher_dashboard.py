@@ -155,9 +155,9 @@ def test_instructor_streamlit_exposes_dashboard_exports_and_validator(monkeypatc
     at = AppTest.from_file("streamlit_app.py", default_timeout=30).run()
 
     assert not at.exception
-    assert "Instructor Case View" in {tab.label for tab in at.tabs}
-    assert "Teacher Dashboard" in {header.value for header in at.header}
-    assert "YAML Case Template Validator" in {header.value for header in at.header}
+    assert "Instructor" in {tab.label for tab in at.tabs}
+    assert "Instructor Workspace" in {header.value for header in at.header}
+    assert "YAML case template validator" in {item.value for item in at.subheader}
     download_labels = {button.label for button in at.get("download_button")}
     assert "Download Teacher Report (Markdown)" in download_labels
     assert "Download Teacher Report (JSON)" in download_labels

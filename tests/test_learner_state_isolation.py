@@ -186,7 +186,7 @@ def test_learner_streamlit_state_and_reset_do_not_carry_hidden_state(monkeypatch
 
     at = AppTest.from_file("streamlit_app.py", default_timeout=20).run()
     at.radio[0].set_value("Case template").run()
-    start_button = next(button for button in at.button if button.label == "Start Case Consultation")
+    start_button = next(button for button in at.button if button.label == "Start structured encounter")
     start_button.click().run()
 
     assert not at.exception
@@ -198,15 +198,16 @@ def test_learner_streamlit_state_and_reset_do_not_carry_hidden_state(monkeypatch
     with pytest.raises(KeyError):
         _ = at.session_state["patient_profile"]
 
-    reset_button = next(button for button in at.button if button.label == "Reset Current Session")
+    reset_button = next(button for button in at.button if button.label == "Reset session data")
     reset_button.click().run()
+    next(button for button in at.button if button.label == "Confirm reset").click().run()
     assert at.session_state["patient_id"] is None
     assert at.session_state["learner_case"] is None
     assert at.session_state["chat_history"] == []
     assert at.session_state["assessment"] is None
 
     at.radio[0].set_value("Case template").run()
-    start_button = next(button for button in at.button if button.label == "Start Case Consultation")
+    start_button = next(button for button in at.button if button.label == "Start structured encounter")
     start_button.click().run()
     assert at.session_state["patient_id"] != first_patient_id
     assert "cocaine" not in _serialized(at.session_state["learner_case"])
@@ -244,9 +245,9 @@ def test_instructor_streamlit_role_exposes_controlled_review_tab(monkeypatch, tm
     from streamlit.testing.v1 import AppTest
 
     at = AppTest.from_file("streamlit_app.py", default_timeout=20).run()
-    assert "Instructor Case View" in [tab.label for tab in at.tabs]
+    assert "Instructor" in [tab.label for tab in at.tabs]
     at.radio[0].set_value("Case template").run()
-    start_button = next(button for button in at.button if button.label == "Start Case Consultation")
+    start_button = next(button for button in at.button if button.label == "Start structured encounter")
     start_button.click().run()
 
     assert not at.exception
