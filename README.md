@@ -1,228 +1,189 @@
 # SimuPatient
 
-SimuPatient is an adaptive clinical reasoning and OSCE training agent for
-medical education.
+**A stateful clinical reasoning and OSCE formative-training agent for medical education.**
 
-It combines structured standardized-patient cases, controlled hidden-information
-disclosure, clinical skill tools, safety supervision, formative assessment, and
-focused retraining in a reproducible Streamlit application.
+Structured cases · Clinical tools · Safety supervision · Action Trace · Focused Retry
 
-SimuPatient 面向医学生、OSCE 学习者与医学教育者，用于可重复的临床推理训练、
-形成性反馈和针对性复训。
+面向医学教育的结构化临床推理与 OSCE 形成性训练 Agent。
 
-## Who It Is For
+<p>
+  <a href="https://simupatient-1.streamlit.app/">
+    <img src="https://img.shields.io/badge/Live%20Demo-Open%20App-1F6F5C?style=for-the-badge" alt="Live Demo">
+  </a>
+  <a href="#quick-start">
+    <img src="https://img.shields.io/badge/Quick%20Start-Run%20Locally-263445?style=for-the-badge" alt="Quick Start">
+  </a>
+</p>
 
-- Medical students practicing structured history-taking and clinical reasoning.
-- OSCE learners rehearsing evidence gathering, differential diagnosis, and safe
-  management decisions.
-- Medical educators reviewing formative learning traces in a controlled local
-  instructor environment.
+</div>
 
-The project is an education simulator. It supports practice and formative
-feedback; it is not a diagnostic, treatment, or high-stakes examination system.
+![SimuPatient safety-block demo](assets/screenshots/04_safety_block.png)
 
-## Learning Loop
+## What is SimuPatient?
+
+SimuPatient is an interactive medical-education simulator for practicing structured patient encounters.
+
+Instead of treating the session as an open-ended chat, SimuPatient keeps a structured encounter state, controls when hidden case information can be revealed, routes clinical actions through explicit tools, checks unsafe completion attempts, and records the process in an Action Trace.
+
+After the encounter, the same trace is used for formative feedback and a focused second attempt.
 
 ```text
 Learning Goal
--> Standardized Patient Interview
--> Clinical Skill Tools
--> Differential Diagnosis
--> Management Plan
--> Safety Review
--> Learning Diagnosis
--> Focused Retry
+      ↓
+Patient Interview
+      ↓
+Clinical Skill Tools
+      ↓
+Differential Diagnosis
+      ↓
+Management Plan
+      ↓
+Safety Review
+      ↓
+Learning Diagnosis
+      ↓
+Focused Retry
 ```
 
-The learner selects a goal and completes a structured encounter. The application
-records questions, tool calls, reasoning, and management actions; checks unsafe
-completion attempts; then produces a multidimensional learning diagnosis and a
-focused retry plan.
+## Why an Agent, not just a chatbot?
 
-## Core Features
+The language model does not own the clinical truth or workflow.
 
-- Validated YAML standardized-patient cases.
-- Conditional disclosure of hidden case information.
-- Vital signs and physical-examination tools.
-- Deterministic ECG and laboratory investigations.
-- Differential-diagnosis and management-plan submission.
-- A Safety Supervisor that blocks authored high-risk completion patterns.
-- An Action Trace for learner-visible evidence and formative review.
-- Multidimensional learning diagnosis and formative feedback.
-- Focused Retry with first/second-attempt comparison.
-- A role-gated local teacher view.
-- A deterministic MockProvider for offline tests and demos.
+* **YAML cases** define patient facts, hidden information, investigations, and authored rules.
+* **Encounter state** controls which actions are available at each stage.
+* **Clinical tools** return structured examination and investigation results.
+* **Safety supervision** can block authored high-risk completion patterns.
+* **Action Trace** persists learner actions and evidence for review.
+* **Focused Retry** uses identified weak dimensions to structure the next attempt.
+* **LLM providers** are limited to dialogue and bounded language-generation tasks.
 
-## Why This Is an Agent, Not a Chatbot
+Case facts, investigation results, safety decisions, and persistent encounter state are controlled by application logic rather than free-form model output.
 
-SimuPatient is a stateful training system rather than an open-ended clinical chat.
-For each encounter, it keeps a structured case state, gates hidden facts behind
-authored disclosure conditions, routes typed clinical actions, persists an Action
-Trace, applies deterministic safety checks before completion, and uses the trace
-to produce formative feedback and a focused retry. The optional LLM providers
-generate patient dialogue within those boundaries; the workflow and safety rules
-do not depend on an LLM being available.
+## Demo
+
+**Live application:**
+https://simupatient-1.streamlit.app/
+
+A representative chest-pain scenario demonstrates the core workflow: the learner gathers evidence, uses clinical tools, submits a management plan, and receives a safety block when attempting an authored unsafe home disposition before required risk checks are satisfied.
+
+Additional interface screenshots are available in [`assets/screenshots/`](assets/screenshots/).
 
 ## Quick Start
 
-Clone the repository and create a virtual environment:
+Clone the repository:
 
 ```bash
 git clone https://github.com/Chelsea-19/Simu_Patient.git
 cd Simu_Patient
+```
+
+Create and activate a virtual environment:
+
+```bash
 python -m venv .venv
 ```
 
-Activate it on Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-Or on macOS/Linux:
+macOS / Linux:
 
 ```bash
 source .venv/bin/activate
 ```
 
-Install and run:
+Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
+
+Run the application:
+
+```bash
 streamlit run streamlit_app.py
 ```
 
-MockProvider is the default and does not require an API key. To select it
-explicitly on Windows PowerShell:
+The default provider is **MockProvider**, so the core demo can run without an external API key.
 
-```powershell
-$env:LLM_PROVIDER = "mock"
-streamlit run streamlit_app.py
-```
+Optional provider implementations for Gemini and Ollama are available under [`app/providers/`](app/providers/).
 
-On macOS/Linux:
+## Evaluation
 
-```bash
-LLM_PROVIDER=mock streamlit run streamlit_app.py
-```
-
-The app creates a local SQLite database when it starts. Local databases are
-ignored by Git.
-
-## Providers
-
-The provider factory exposes three providers:
-
-- `mock`: deterministic, offline, and the default for tests and public demos.
-- `gemini`: optional; requires `GEMINI_API_KEY` and the installed Gemini SDK.
-- `ollama`: optional local experimentation with a running Ollama server and SDK.
-
-Provider modules import optional SDKs only when selected. For Gemini, copy the
-example configuration and supply a real key only in your local environment or
-Streamlit secrets:
-
-```bash
-LLM_PROVIDER=gemini GEMINI_API_KEY=your-key streamlit run streamlit_app.py
-```
-
-Never commit `.env`, `.streamlit/secrets.toml`, or credential values.
-
-## Tests and Evaluation
-
-Run the active test suite:
+Run the test suite:
 
 ```bash
 pytest
 ```
 
-Run the deterministic disclosure benchmark:
+Run the authored GOAI workflow evaluation:
 
 ```bash
-LLM_PROVIDER=mock python experiments/run_disclosure_eval.py
+python evaluation/run_goai_evaluation.py
 ```
 
-Run the deterministic OSCE benchmark:
+Run the disclosure and OSCE benchmarks:
 
 ```bash
-LLM_PROVIDER=mock python experiments/run_osce_eval.py
+python experiments/run_disclosure_eval.py
+python experiments/run_osce_eval.py
 ```
 
-Run the authored GOAI workflow scenarios:
+Current deterministic software evaluation includes:
 
-```bash
-LLM_PROVIDER=mock python evaluation/run_goai_evaluation.py
+| Check                                   |    Result |
+| --------------------------------------- | --------: |
+| Authored workflow scenarios             |   15 / 15 |
+| Unsafe-discharge attempts blocked       |     3 / 3 |
+| Prompt-injection attempts resisted      |     6 / 6 |
+| Expected Action Trace entries persisted | 152 / 152 |
+| No-API full workflow                    |     1 / 1 |
+
+These are authored software-regression scenarios, **not clinical validation or evidence of educational effectiveness**.
+
+The retained OSCE benchmark is intentionally non-perfect: total-score MAE is 19.1, pass/fail agreement is 0.70, and three false fails occurred. The automated scorer is therefore used only for formative feedback, not high-stakes assessment.
+
+Detailed evaluation artifacts are available in [`evaluation/`](evaluation/) and [`experiments/`](experiments/).
+
+## Repository Structure
+
+```text
+Simu_Patient/
+├── app/                  # Core application, state, services and providers
+├── assets/               # Demo screenshots and trace evidence
+├── case_templates/       # Structured synthetic educational cases
+├── evaluation/           # GOAI workflow evaluation and metrics
+├── experiments/          # Disclosure and OSCE benchmark runners
+├── tests/                # Automated regression tests
+├── streamlit_app.py      # Streamlit entry point
+├── requirements.txt
+├── pyproject.toml
+└── LICENSE
 ```
 
-The runners write small CSV, JSON, and Markdown outputs under
-`experiments/results/`, `evaluation/`, and `evaluation/results/`. These are
-internal software regression results, not clinical or educational validation.
+## Intended Use & Safety
 
-## Project Structure
+SimuPatient is designed for:
 
-- `app/`: models, schemas, repositories, providers, services, and evaluation
-  utilities used by the Streamlit application.
-- `case_templates/`: structured synthetic educational cases.
-- `tests/`: service, safety, state-isolation, provider, and evaluation tests.
-- `experiments/`: disclosure and OSCE benchmark runners and authored transcripts.
-- `evaluation/`: end-to-end workflow scenario runner and aggregate metrics.
-- `assets/demo_traces/`: reproducible authored scenario evidence.
-- `assets/screenshots/`: screenshots captured from the local Streamlit prototype.
-- `docs/`: authoring, deployment, safety, state-separation, and tool guides.
-- `submission/`: competition introduction, deck, prototype guide, and demo script.
-- `streamlit_app.py`: the public application entry point.
+* medical-education simulation;
+* clinical reasoning practice;
+* OSCE-style formative training;
+* learner reflection and targeted retraining.
 
-## Submission Materials
+It is **not** intended for:
 
-- Project introduction: `submission/project_intro_zh.md`
-- Presentation: `submission/SimuPatient_GOAI_Preliminary.pptx`
-- PDF deck: `submission/SimuPatient_GOAI_Preliminary.pdf`
-- Prototype guide: `submission/prototype_guide.md`
-- Demo script: `submission/demo_script_3min.md`
+* real-patient diagnosis or treatment;
+* medical advice or clinical decision support;
+* certified or high-stakes OSCE assessment;
+* replacement of medical educators, clinicians, or examiners.
 
-## Learner and Instructor Boundaries
+The repository uses structured synthetic educational cases and does not include real patient records.
 
-The public learner workflow exposes only learner-visible case data. Full case
-facts and teacher records are behind the server-side `APP_ROLE=instructor` gate.
-The default public demo must remain in learner mode and must not offer instructor
-permissions or expose authored hidden state.
-
-Instructor mode is intended only for a controlled local or separately secured
-teacher instance. It is not an authentication system and must not be treated as
-one for a public deployment.
-
-## Safety and Intended Use
-
-- SimuPatient is for medical education simulation and software research.
-- It must not be used for diagnosis, treatment, medical advice, or patient care.
-- It does not replace medical teachers, standardized patients, or formal OSCE
-  examiners.
-- Internal tests and benchmarks are not clinical validation or proof of
-  educational effectiveness.
-- The default public demo does not provide instructor access.
-- Safety rules are authored software checks and require professional review
-  before any broader educational deployment.
-
-## Data Sources and Privacy
-
-- Cases are structured educational scenarios stored as YAML.
-- Individual people and encounter identifiers are synthetic.
-- Examination, ECG, and laboratory results come from the selected case template.
-- The repository does not include real patient records or local runtime databases.
-- Medical content and scoring rules still require review by qualified educators
-  and clinical professionals.
-
-## Documentation
-
-- Local and Streamlit deployment: `docs/deployment.md`
-- Case schema: `docs/case_schema.md`
-- Case authoring: `docs/case_authoring_guide.md`
-- Learner/instructor state separation: `docs/state_separation.md`
-- Safety supervisor: `docs/safety_supervisor.md`
-- Clinical tool interface: `docs/tool_interface.md`
-- Learning diagnosis: `docs/learning_diagnosis.md`
-- Teacher workflow: `docs/teacher_workflow.md`
-- Technical design and benchmark interpretation: `docs/technical_report.md`
+The public application is intended to run in learner mode. Instructor features are a controlled application setting, not a production authentication system.
 
 ## License
 
-SimuPatient is released under the [MIT License](LICENSE).
+Released under the [MIT License](LICENSE).
