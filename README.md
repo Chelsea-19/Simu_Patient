@@ -119,10 +119,10 @@ Run the test suite:
 pytest
 ```
 
-Run the authored GOAI workflow evaluation:
+Run the authored the workflow evaluation:
 
 ```bash
-python evaluation/run_goai_evaluation.py
+python evaluation/run_workflow_evaluation.py
 ```
 
 Run the disclosure and OSCE benchmarks:
@@ -155,7 +155,7 @@ Simu_Patient/
 ├── app/                  # Core application, state, services and providers
 ├── assets/               # Demo screenshots and trace evidence
 ├── case_templates/       # Structured synthetic educational cases
-├── evaluation/           # GOAI workflow evaluation and metrics
+├── evaluation/           # The workflow evaluation and metrics
 ├── experiments/          # Disclosure and OSCE benchmark runners
 ├── tests/                # Automated regression tests
 ├── streamlit_app.py      # Streamlit entry point
